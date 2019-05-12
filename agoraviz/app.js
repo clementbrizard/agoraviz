@@ -4,11 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('localhost:27017/nodetest1');
+var db = monk('localhost:27017/agoraviz');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var debatsRouter = require('./routes/debats');
 
 var app = express();
 
@@ -29,7 +30,7 @@ app.use(function(req,res,next){
 });
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/debats', debatsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

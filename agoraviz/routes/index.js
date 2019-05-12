@@ -11,6 +11,7 @@ router.get('/helloworld', function(req, res) {
     res.render('helloworld', { title: 'Hello, World!' });
 });
 
+
 router.get('/debatslist', function(req, res) {
     var db = req.db;
     var collection = db.get('debatcollection');
