@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Débats en cours</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Débats en cours</h1>
+    <ul>
+      <%
+        var list = '';
+        for (i = 0; i < debatslist.length; i++) {
+          list += '<li>'' + debatslist[i].question + '</li>';
+        }
+      %>
+      <%= list %>
+    </ul>
+  </body>
+</html>
