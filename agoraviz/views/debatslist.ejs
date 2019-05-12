@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Débats en cours</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Débats en cours</h1>
+    <table id='debatslist'>
+    </table>
+    <ul>
+      <%
+        var list = '';
+        for (i = 0; i < debatslist.length; i++) {
+          list += '<li>' + debatslist[i].question + '</li>';
+        }
+      %>
+      <%= list %>
+    </ul>
+
+    <h3 id='debatInfoQuestion'>
+    <p>
+      <a href='/newdebat'>Lancer un nouveau débat</a>
+    </p>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/global.js"></script>
+  </body>
+  
+</html>
