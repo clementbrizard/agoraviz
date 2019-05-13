@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Lancer un débat</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <% include ../partials/head %>
   </head>
   <body>
     <h1><%= title %></h1>
+    <header>
+    <% include ../partials/header %>
+    </header>
     <form id="formAddDebat" name="adddebat" method="post" action="/adddebat">
       <input id="inputDebatQuestion" type="text" placeholder="question" name="question" />
-      <button id="btnSubmit" type="submit">Valider</button>
+      <button id="btnAddDebat" type="submit">Lancer le débat</button>
     </form>
+    <br>
+
+
+    <footer>
+      <% include ../partials/footer %>
+    </footer>
+    
+
   </body>
 </html>
+
+
