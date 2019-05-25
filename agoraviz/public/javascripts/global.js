@@ -8,7 +8,7 @@ $(document).ready(function() {
   populateTable();
 // Question link click
   $('#debatsList table tbody').on('click', 'td a.linkshowdebat', showDebatInfo);
-  
+  $('#formAddContrib').hide();
     // Delete Debat link click
   $('#debatsList table tbody').on('click', 'td a.linkdeletedebat', deleteDebat);
 
@@ -62,8 +62,8 @@ function showDebatInfo( event ) {
   //thisDebatObject.reponses.forEach(function())
   //$('#debatInfoContribs').text(thisDebatObject.reponses.type+''+thisDebatObject.reponses.tcourt+'\n'+thisDebatObject.reponses.tlong+thisDebatObject.reponses.auteur+thisDebatObject.reponses.date);
 
-  $('#formAddContrib').style.display = "block";
-  $('#inputContribQuestionId').value = thisDebatObject._id;
+  $('#formAddContrib').show();
+  $('#inputContribQuestionId').val(thisDebatObject._id);
 
 };
 
@@ -179,27 +179,27 @@ function addContrib(event) {
   // Check and make sure errorCount's still at zero
   if(errorCount === 0) {
 
-  questionParentId = $('#formAddContrib form input#inputContribQuestionId').val();
+  questionParentId = $('#inputContribQuestionId').val();
+  contribParentId = null;
 
+ 
     // If it is, compile all user info into one object
     var newContrib = {
       "questionParent" :  questionParentId,
-      "contribParent" : $('#formAddContrib form input#inputDebatQuestion').val(),
+      "contribParent" : contribParentId,
         "type" : document.querySelector('input[name="contribType"]:checked').value,
-        "tcourt" : $('#formAddContrib form input#inputContribTexteCourt').val(),
-        "tlong" : $('#formAddContrib form input#inputContribTexteLong').val(),
-        "auteur" : $('#formAddContrib form input#inputContribAuteur').val()
+        "tcourt" : $('#inputContribTexteCourt').val(),
+        "tlong" : $('#inputContribTexteLong').val(),
+        "auteur" : $('#inputContribAuteur').val()
         //"timestamp" : + new Date();
     }
-
     // Use AJAX to post the object to our adddebat service
     $.ajax({
       type: 'POST',
       data: newContrib,
-      url: '/debats/'+ questionParentId + '/addcontrib',
+      url: '/debats/addcontrib',
       dataType: 'JSON'
     }).done(function( response ) {
-        console.log( newContrib );
       // Check for successful (blank) response
       if (response.msg === '') {
 

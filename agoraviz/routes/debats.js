@@ -40,11 +40,11 @@ module.exports = router;
 
 
 /* POST to Add Contrib Service */
-router.post('/:id/addcontrib', function(req, res) {
-console.log(req);
+router.post('/addcontrib', function(req, res) {
+
     // Set our internal DB variable
     var db = req.db;
-    console.log(req);
+    console.log('hello'+req);
     // Get our form values. These rely on the "name" 
 
      
@@ -68,6 +68,7 @@ console.log(req);
 
     // Set our collection
     var collection = db.get('contribcollection');
+    console.log(collection);
 
     // Submit to the DB
     collection.insert({

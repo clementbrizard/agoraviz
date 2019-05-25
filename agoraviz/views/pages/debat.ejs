@@ -1,17 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <% include ../partials/head %>
 
-  </head>
-  <body>
-    <h1>Débat</h1>
-    <header>
-    <% include ../partials/header %>
-    </header>
-
-
-    <br>
     <div id="debatInfo">
       <p>      
         <span id="debatInfoQuestion">
@@ -23,8 +10,7 @@
 
         </span>
       </p>
-
-      <form id="formAddContrib" name="addcontrib" method="post" action="/debats/addcontrib" style="display: block">
+      <form id="formAddContrib" name="addcontrib" method="post" action="/debats/addcontrib">
       <div>
     <input type="radio" id="contribTypeOuiCar"
      name="contribType" value="ouicar">
@@ -49,17 +35,6 @@
 
       <button id="btnAddContrib" type="submit">Ajouter ma contribution</button>
     </form>
-    </div>
+  </div>
     <br>
 
-
-    <footer>
-      <% include ../partials/footer %>
-    </footer>
-    
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script type="text/javascript" src="/javascripts/global.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  </body>
-  
-</html>
