@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head %>
+
+  </head>
+  <body>
+    <h1>Débat</h1>
+    <header>
+    <% include ../partials/header %>
+    </header>
+
+
+    <br>
+    <div id="debatInfo">
+      <p>      
+        <span id="debatInfoQuestion">
+
+        </span>
+      </p>
+      <p>      
+        <span id="debatInfoContribs">
+
+        </span>
+      </p>
+
+      <form id="formAddContrib" name="addcontrib" method="post" action="/debats/addcontrib" style="display: block">
+      <div>
+    <input type="radio" id="contribTypeOuiCar"
+     name="contribType" value="ouicar">
+    <label for="contribTypeOuiCar">Oui, car...</label>
+
+    <input type="radio" id="contribTypeOuiMais"
+     name="contribType" value="ouimais">
+    <label for="contribTypeOuiMais">Oui, mais...</label>
+
+    <input type="radio" id="contribTypeNonCar"
+     name="contribType" value="noncar">
+    <label for="contribTypeNonCar">Non, car...</label>
+
+    <input type="radio" id="contribTypeNonMais"
+     name="contribType" value="nonmais">
+    <label for="contribTypeNonMais">Non, mais...</label>
+  </div>
+      <input id="inputContribTexteCourt" type="text" placeholder="tcourt" name="tcourt" />
+      <input id="inputContribTexteLong" type="text" placeholder="tlong" name="tlong" />
+      <input id="inputContribAuteur" type="text" placeholder="auteur" name="auteur" />
+      <input id="inputContribQuestionId" type="hidden" value="1" />
+
+      <button id="btnAddContrib" type="submit">Ajouter ma contribution</button>
+    </form>
+    </div>
+    <br>
+
+
+    <footer>
+      <% include ../partials/footer %>
+    </footer>
+    
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/global.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </body>
+  
+</html>
