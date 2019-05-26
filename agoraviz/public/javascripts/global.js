@@ -7,10 +7,13 @@ $(document).ready(function() {
   // Populate the debat table on initial page load
   populateTable();
 // Question link click
+
   $('#debatsList table tbody').on('click', 'td a.linkshowdebat', showDebatInfo);
   $('#formAddContrib').hide();
     // Delete Debat link click
   $('#debatsList table tbody').on('click', 'td a.linkdeletedebat', deleteDebat);
+  $('#contribsList table tbody').hide();
+  $
 
 
   
@@ -41,6 +44,8 @@ function populateTable() {
 };
 
 
+
+
 // Show Debat Info
 
 function showDebatInfo( event ) {
@@ -50,6 +55,7 @@ function showDebatInfo( event ) {
 
   // Retrieve question from link rel attribute
   var thisDebatQuestion = $(this).attr('rel');
+
   // Get Index of object based on id value
   var arrayPosition = debatsListData.map(function(arrayItem) { return arrayItem.question; }).indexOf(thisDebatQuestion);
   // Get our Debat Object
@@ -58,7 +64,34 @@ function showDebatInfo( event ) {
   //Populate Info Box
   $('#debatInfoQuestion').text(thisDebatObject.question);
   $('#debatId').text(thisDebatObject._id);
-  $('#debatInfoContribs').text('');
+  $('#contribsList table tbody').show();
+
+  var tableContent = '';
+
+  // jQuery AJAX call for JSON
+
+  $.getJSON( '/debats/'+thisDebatObject._id+'/contribslist', function( data ) {
+
+    contribsListData = data; 
+
+    if (contribsListData == null){
+       $('#debatInfoContribs').text('Pas de contribution pour l\'instant !');
+
+    }
+    else{
+          // For each item in our JSON, add a table row and cells to the content string
+      $.each(data, function(){
+        tableContent += '<tr>';
+        tableContent += '<td><a href="#" class="linkshowcontrib" rel="' + this._id + '">' + this.tcourt + '</a></td>';
+        tableContent += '</tr>';
+      });
+      // Inject the whole content string into our existing HTML table
+      $('#contribsList table tbody').html(tableContent);
+    }
+
+  });
+
+ 
   //thisDebatObject.reponses.forEach(function())
   //$('#debatInfoContribs').text(thisDebatObject.reponses.type+''+thisDebatObject.reponses.tcourt+'\n'+thisDebatObject.reponses.tlong+thisDebatObject.reponses.auteur+thisDebatObject.reponses.date);
 
@@ -183,7 +216,7 @@ function addContrib(event) {
   contribParentId = null;
 
  
-    // If it is, compile all user info into one object
+    // If it is, compile all contrib info into one object
     var newContrib = {
       "questionParent" :  questionParentId,
       "contribParent" : contribParentId,
@@ -193,27 +226,16 @@ function addContrib(event) {
         "auteur" : $('#inputContribAuteur').val()
         //"timestamp" : + new Date();
     }
-    // Use AJAX to post the object to our adddebat service
+    // Use AJAX to post the object to our addcontrib service
     $.ajax({
       type: 'POST',
       data: newContrib,
       url: '/debats/addcontrib',
       dataType: 'JSON'
     }).done(function( response ) {
-      // Check for successful (blank) response
-      if (response.msg === '') {
-
         // Clear the form inputs
         $('#formAddContrib form input').val('');
 
-
-      }
-      else {
-
-        // If something goes wrong, alert the error message that our service returned
-        alert('Error: ' + response.msg);
-
-      }
     });
   }
   else {

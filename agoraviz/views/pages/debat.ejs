@@ -1,17 +1,23 @@
 
-    <div id="debatInfo">
+    <div id="debatInfo" class="container-fluid" style="width:100%;">
       <p>      
         <span id="debatInfoQuestion">
 
         </span>
-      </p>
-      <p>      
+      </p> 
         <span id="debatInfoContribs">
-
+          <div id="contribsList">
+            <table class="table table-hover">
+            <thead>
+              <th scope="col">Contributions</th>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
         </span>
-      </p>
       <form id="formAddContrib" name="addcontrib" method="post" action="/debats/addcontrib">
-      <div>
+      <div class="form-check form-check-inline">
     <input type="radio" id="contribTypeOuiCar"
      name="contribType" value="ouicar">
     <label for="contribTypeOuiCar">Oui, car...</label>
@@ -28,13 +34,17 @@
      name="contribType" value="nonmais">
     <label for="contribTypeNonMais">Non, mais...</label>
   </div>
+  <div class="form-group">
       <input id="inputContribTexteCourt" type="text" placeholder="tcourt" name="tcourt" />
       <input id="inputContribTexteLong" type="text" placeholder="tlong" name="tlong" />
+   </div>   
+    <div class="form-group">
       <input id="inputContribAuteur" type="text" placeholder="auteur" name="auteur" />
       <input id="inputContribQuestionId" type="hidden" value="1" />
+    </div>
+
 
       <button id="btnAddContrib" type="submit">Ajouter ma contribution</button>
     </form>
   </div>
-    <br>
 

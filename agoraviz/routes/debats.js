@@ -23,6 +23,16 @@ router.get('/debatslist/:id', function(req, res) {
 
 });
 
+/* GET contribslist. */
+router.get('/:id/contribslist', function(req, res) {
+  var db = req.db;
+  var collection = db.get('contribcollection');
+  var debatParent = req.params.id;
+  collection.find({ 'questionParent' : debatParent },function(e,docs){
+    res.json(docs);
+  });
+
+});
 
 
 
@@ -44,14 +54,14 @@ router.post('/addcontrib', function(req, res) {
 
     // Set our internal DB variable
     var db = req.db;
-    console.log('hello'+req);
+    //console.log('hello'+req);
     // Get our form values. These rely on the "name" 
 
      
-     var contribQuestionId = req.params.id;
+     var contribQuestionId = req.body.questionParent;
     
     var contribParent = null;
-    var contribType = req.body.contribType;
+    var contribType = req.body.type;
     var contribTexteCourt = req.body.tcourt;
     var contribTexteLong = req.body.tlong;
     var contribAuteur = req.body.auteur;
@@ -68,7 +78,6 @@ router.post('/addcontrib', function(req, res) {
 
     // Set our collection
     var collection = db.get('contribcollection');
-    console.log(collection);
 
     // Submit to the DB
     collection.insert({
