@@ -1,0 +1,54 @@
+
+    <div id="debatInfo" class="container-fluid" style="width:100%;">
+      <p>      
+        <span id="debatInfoQuestion">
+
+        </span>
+      </p> 
+        <span id="debatInfoContribs">
+          <div id="contribsList">
+            <table class="table table-hover">
+            <thead>
+              <th scope="col">Type</th>
+              <th scope="col">Titre</th>
+              <th scope="col">Développement</th>
+              <th scope="col">Auteur</th>
+              <th scope="col">Date</th>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+        </span>
+      <form id="formAddContrib" name="addcontrib" method="post" action="/debats/addcontrib">
+      <div class="form-check form-check-inline">
+    <input type="radio" id="contribTypeOuiCar"
+     name="contribType" value="ouicar">
+    <label for="contribTypeOuiCar">Oui, car...</label>
+
+    <input type="radio" id="contribTypeOuiMais"
+     name="contribType" value="ouimais">
+    <label for="contribTypeOuiMais">Oui, mais...</label>
+
+    <input type="radio" id="contribTypeNonCar"
+     name="contribType" value="noncar">
+    <label for="contribTypeNonCar">Non, car...</label>
+
+    <input type="radio" id="contribTypeNonMais"
+     name="contribType" value="nonmais">
+    <label for="contribTypeNonMais">Non, mais...</label>
+  </div>
+  <div class="form-group">
+      <input id="inputContribTexteCourt" type="text" placeholder="tcourt" name="tcourt" />
+      <input id="inputContribTexteLong" type="text" placeholder="tlong" name="tlong" />
+   </div>   
+    <div class="form-group">
+      <input id="inputContribAuteur" type="text" placeholder="auteur" name="auteur" />
+      <input id="inputContribQuestionId" type="hidden" value="1" />
+    </div>
+
+
+      <button id="btnAddContrib" type="submit">Ajouter ma contribution</button>
+    </form>
+  </div>
+

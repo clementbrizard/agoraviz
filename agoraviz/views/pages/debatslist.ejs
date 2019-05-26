@@ -9,26 +9,23 @@
     <header>
     <% include ../partials/header %>
     </header>
-    <div id="debatsList">
-    <table>
-      <thead>
-        
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
+    <div id="debatsList" class="container-fluid">
+      <div class="row">
+        <div class="col-md-4">
+          <table class="table table-hover">
+            <thead>
+              <th scope="col">Titre</th>
+              <th scope="col">Supprimer</th>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-8">
+          <% include ../pages/debat %>
+        </div>
+      </div>
     </div>
-
-    <br>
-    <div id="debatInfo">
-      <p>      
-        <span id="debatInfoQuestion">
-
-        </span>
-      </p>
-    </div>
-    <br>
-
 
     <footer>
       <% include ../partials/footer %>
