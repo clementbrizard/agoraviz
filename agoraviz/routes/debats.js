@@ -23,12 +23,23 @@ router.get('/debatslist/:id', function(req, res) {
 
 });
 
-/* GET contribslist. */
+/* GET contribslist for one special debate. */
 router.get('/:id/contribslist', function(req, res) {
   var db = req.db;
   var collection = db.get('contribcollection');
   var debatParent = req.params.id;
   collection.find({ 'questionParent' : debatParent },function(e,docs){
+    res.json(docs);
+  });
+
+});
+
+
+/*GET ALL contribs */
+router.get('/contribslist', function(req, res) {
+  var db = req.db;
+  var collection = db.get('contribcollection');
+  collection.find({},{},function(e,docs){
     res.json(docs);
   });
 
@@ -46,7 +57,7 @@ router.delete('/deletedebat/:id', function(req, res) {
   });
 });
 
-module.exports = router;
+
 
 
 /* POST to Add Contrib Service */
@@ -117,3 +128,16 @@ router.get('/debatslist/:id', function(req, res) {
 });
 
 
+
+/* DELETE to deletecontrib. */
+router.delete('/deletecontrib/:id', function(req, res) {
+  var db = req.db;
+  var collection = db.get('contribcollection');
+  var contribToDelete = req.params.id;
+  collection.remove({ '_id' : contribToDelete }, function(err) {
+    res.send((err === null) ? { msg: '' } : { msg:'error: ' + err });
+  });
+});
+
+
+module.exports = router;

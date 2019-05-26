@@ -35,7 +35,7 @@ function populateTable() {
     $.each(data, function(){
       tableContent += '<tr>';
       tableContent += '<td><a href="#" class="linkshowdebat" rel="' + this.question + '">' + this.question + '</a></td>';
-      tableContent += '<td><a href="#" class="linkdeletedebat" rel="' + this._id + '">delete</a></td>';
+      tableContent += '<td><a href="#" class="linkdeletedebat" rel="' + this._id + '">Supprimer</a></td>';
       tableContent += '</tr>';
     });
     // Inject the whole content string into our existing HTML table
@@ -46,12 +46,13 @@ function populateTable() {
 
 
 
+
 // Show Debat Info
 
 function showDebatInfo( event ) {
 
   // Prevent Link from Firing
-  event.preventDefault();
+  //event.preventDefault();
 
   // Retrieve question from link rel attribute
   var thisDebatQuestion = $(this).attr('rel');
@@ -65,6 +66,7 @@ function showDebatInfo( event ) {
   $('#debatInfoQuestion').text(thisDebatObject.question);
   $('#debatId').text(thisDebatObject._id);
   $('#contribsList table tbody').show();
+  $('#contribsList table tbody').on('click', 'td a.linkdeletecontrib', deleteContrib);
 
   var tableContent = '';
 
@@ -82,7 +84,12 @@ function showDebatInfo( event ) {
           // For each item in our JSON, add a table row and cells to the content string
       $.each(data, function(){
         tableContent += '<tr>';
+        tableContent += '<td>' + this.type + '</td>';
         tableContent += '<td><a href="#" class="linkshowcontrib" rel="' + this._id + '">' + this.tcourt + '</a></td>';
+        tableContent += '<td>' + this.tlong + '</td>';
+        tableContent += '<td>' + this.auteur + '</td>';
+        tableContent += '<td>' + this.timestamp + '</td>';
+        tableContent += '<td><a href="#" class="linkdeletecontrib" rel="' + this._id + '">Supprimer</a></td>';
         tableContent += '</tr>';
       });
       // Inject the whole content string into our existing HTML table
@@ -166,6 +173,8 @@ function deleteDebat(event) {
   // Check and make sure the user confirmed
   if (confirmation === true) {
 
+    //TODO : SUPPRIMER CONTRIBS ASSOCIEES
+
     // If they did, do our delete
     $.ajax({
       type: 'DELETE',
@@ -235,6 +244,7 @@ function addContrib(event) {
     }).done(function( response ) {
         // Clear the form inputs
         $('#formAddContrib form input').val('');
+        document.location.reload(true);
 
     });
   }
@@ -243,4 +253,46 @@ function addContrib(event) {
     alert('Please fill in all fields');
     return false;
   }
+};
+
+
+
+// Delete Contrib
+function deleteContrib(event) {
+
+  event.preventDefault();
+
+  // Pop up a confirmation dialog
+  var confirmation = confirm('Souhaitez-vous supprimer cette contribution de manière définitive ?');
+
+  // Check and make sure the user confirmed
+  if (confirmation === true) {
+
+    // If they did, do our delete
+    $.ajax({
+      type: 'DELETE',
+      url: '/debats/deletecontrib/' + $(this).attr('rel')
+    }).done(function( response ) {
+      // Check for a successful (blank) response
+      if (response.msg === '') {
+        alert('Contribution supprimée !');
+        document.location.reload(true);
+      }
+      else {
+        alert('Error: ' + response.msg);
+      }
+
+      // Update the table
+      
+
+    });
+
+  }
+  else {
+
+    // If they said no to the confirm, do nothing
+    return false;
+
+  }
+
 };
