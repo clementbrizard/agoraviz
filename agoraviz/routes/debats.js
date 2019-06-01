@@ -44,11 +44,11 @@ router.post('/addcontrib', function(req, res) {
     // Set our internal DB variable
     var db = req.db;
     //console.log('hello'+req);
-    // Get our form values. These rely on the "name" 
+    // Get our form values. These rely on the "name"
 
-     
+
      var contribQuestionId = req.body.questionParent;
-    
+
     var contribParent = null;
     var contribType = req.body.type;
     var contribTexteCourt = req.body.tcourt;
