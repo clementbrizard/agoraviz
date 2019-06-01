@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../../partials/head %>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <header>
+    <% include ../../partials/header %>
+    </header>
+    <form id="formAddDebat" name="adddebat" method="post" action="/debates/">
+      <input id="inputDebatQuestion" type="text" placeholder="question" name="question" />
+      <button id="btnAddDebat" type="submit">Lancer le débat</button>
+    </form>
+    <br>
+
+
+    <footer>
+      <% include ../../partials/footer %>
+    </footer>
+
+
+  </body>
+</html>
+
+

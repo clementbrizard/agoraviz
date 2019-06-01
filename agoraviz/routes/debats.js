@@ -1,28 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET debatslist. */
-router.get('/debatslist', function(req, res) {
-  var db = req.db;
-  var collection = db.get('debatcollection');
-  collection.find({},{},function(e,docs){
-    res.json(docs);
-  });
-
-});
-
-/* GET debatid. */
-router.get('/debatslist/:id', function(req, res) {
-  var db = req.db;
-  var collection = db.get('debatcollection');
-
-  var debatToFocusOn = req.params.id;
-  collection.find({ '_id' : debatToFocusOn }, function(e,docs){
-    res.json(docs);
-  });
-
-});
-
 /* GET contribslist for one special debate. */
 router.get('/:id/contribslist', function(req, res) {
   var db = req.db;
