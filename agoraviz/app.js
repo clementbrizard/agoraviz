@@ -26,7 +26,10 @@ app.use(function(req,res,next){
     next();
 });
 
-app.use(require('./controllers'));
+var indexRouter = require('./controllers');
+var apiRouter = require('./api');
+app.use('/', indexRouter);
+app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

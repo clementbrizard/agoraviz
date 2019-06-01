@@ -1,5 +1,6 @@
 const express = require('express')
     , router = express.Router()
-    , Debat = require('../models/debat')
 
-module.exports = router;
+router.use('/debates', require('./debat'))
+
+module.exports = router
