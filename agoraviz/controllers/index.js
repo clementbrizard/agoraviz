@@ -1,10 +1,13 @@
-const express = require('express')
-    , router = express.Router()
+const express = require('express');
 
-router.use('/debates', require('./debate'))
+const router = express.Router();
+
+router.use('/debates', require('./debate'));
 
 router.get('/', (req, res) => {
-    res.render('index', { title: 'AgoraViz' })
-})
+  res.render('index', {
+    title: 'AgoraViz',
+  });
+});
 
-module.exports = router
+module.exports = router;
