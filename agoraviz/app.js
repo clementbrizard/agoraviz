@@ -8,9 +8,6 @@ var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('localhost:27017/agoraviz');
 
-var indexRouter = require('./routes/index');
-var debatsRouter = require('./routes/debats');
-
 var app = express();
 
 // view engine setup
@@ -29,8 +26,7 @@ app.use(function(req,res,next){
     next();
 });
 
-app.use('/', indexRouter);
-app.use('/debats', debatsRouter);
+app.use(require('./controllers'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
