@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <% include ../../partials/head %>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 
+    <% include ../../partials/head %>
   </head>
+
   <body>
     <h1>Débats en cours</h1>
+
     <header>
     <% include ../../partials/header %>
     </header>
-    <div id="debates" class="container-fluid">
+
+    <div class="container-fluid">
       <div class="row">
         <div class="col-md-4">
-          <table class="table table-hover">
+          <table id="debates" class="display" style="width:100%">
             <thead>
-              <th scope="col">Titre</th>
-              <th scope="col">Supprimer</th>
+              <tr>
+                <th>Titre</th>
+                <th>Supprimer</th>
+              </tr>
             </thead>
             <tbody>
+              <%debates.forEach(function(debate) { %>
+                <tr>
+                  <td><%= debate.question %></td>
+                  <td>Supprimer</td>
+                </tr>
+              <% }); %>
             </tbody>
           </table>
-        </div>
-        <div class="col-md-8">
-          <% include ./debat %>
         </div>
       </div>
     </div>
@@ -31,8 +40,10 @@
       <% include ../../partials/footer %>
     </footer>
 
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="/static/javascript/debate.js"></script>
+
   </body>
 
 </html>

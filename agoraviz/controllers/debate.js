@@ -1,4 +1,5 @@
 const express = require('express');
+const getJSON = require('get-json');
 const Debate = require('../models/debate');
 
 const router = express.Router();
@@ -38,7 +39,13 @@ router.get('/new', (req, res) => {
 
 // Get list of existing debates
 router.get('/', (req, res) => {
-  res.render('pages/debate/debates');
-})
+  getJSON('http://localhost:3000/api/debates', (err, docs) => {
+    res.render(
+      'pages/debate/debates', {
+        debates: docs,
+      },
+    );
+  });
+});
 
 module.exports = router;
