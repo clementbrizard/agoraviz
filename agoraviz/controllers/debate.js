@@ -36,4 +36,9 @@ router.get('/new', (req, res) => {
   );
 });
 
+// Get list of existing debates
+router.get('/', (req, res) => {
+  res.render('pages/debate/debates');
+})
+
 module.exports = router;
