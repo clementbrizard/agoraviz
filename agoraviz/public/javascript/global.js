@@ -3,20 +3,20 @@ var debatsListData = [];
 
 // DOM Ready =============================================================
 $(document).ready(function() {
-  
+
   // Populate the debat table on initial page load
   populateTable();
 // Question link click
 
-  $('#debatsList table tbody').on('click', 'td a.linkshowdebat', showDebatInfo);
+  $('#debates table tbody').on('click', 'td a.linkshowdebat', showDebatInfo);
   $('#formAddContrib').hide();
     // Delete Debat link click
-  $('#debatsList table tbody').on('click', 'td a.linkdeletedebat', deleteDebat);
+  $('#debates table tbody').on('click', 'td a.linkdeletedebat', deleteDebat);
   $('#contribsList table tbody').hide();
   $
 
 
-  
+
 
 });
 
@@ -74,7 +74,7 @@ function showDebatInfo( event ) {
 
   $.getJSON( '/debats/'+thisDebatObject._id+'/contribslist', function( data ) {
 
-    contribsListData = data; 
+    contribsListData = data;
 
     if (contribsListData == null){
        $('#debatInfoContribs').text('Pas de contribution pour l\'instant !');
@@ -98,7 +98,7 @@ function showDebatInfo( event ) {
 
   });
 
- 
+
   //thisDebatObject.reponses.forEach(function())
   //$('#debatInfoContribs').text(thisDebatObject.reponses.type+''+thisDebatObject.reponses.tcourt+'\n'+thisDebatObject.reponses.tlong+thisDebatObject.reponses.auteur+thisDebatObject.reponses.date);
 
@@ -224,7 +224,7 @@ function addContrib(event) {
   questionParentId = $('#inputContribQuestionId').val();
   contribParentId = null;
 
- 
+
     // If it is, compile all contrib info into one object
     var newContrib = {
       "questionParent" :  questionParentId,
@@ -283,7 +283,7 @@ function deleteContrib(event) {
       }
 
       // Update the table
-      
+
 
     });
 
