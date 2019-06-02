@@ -23,6 +23,29 @@ router.post('/', (req, res) => {
   });
 });
 
+// Read list of existing debates
+router.get('/', (req, res) => {
+  getJSON('http://localhost:3000/api/debates', (err, docs) => {
+  res.render(
+    'pages/debate/debates', {
+      debates: docs,
+    },
+  );
+});
+});
+
+// Delete a debate
+router.post('/delete/:id', (req, res) => {
+  const id = req.params.id;
+
+  Debate.delete(req.db, id, (err) => {
+    if (err) {
+      res.send('Error trying to delete a debate')
+    }
+
+    res.redirect('/debates');
+  });
+});
 
 /*
     Get pages
@@ -35,17 +58,6 @@ router.get('/new', (req, res) => {
       title: 'Lancer un nouveau débat',
     },
   );
-});
-
-// Get list of existing debates
-router.get('/', (req, res) => {
-  getJSON('http://localhost:3000/api/debates', (err, docs) => {
-    res.render(
-      'pages/debate/debates', {
-        debates: docs,
-      },
-    );
-  });
 });
 
 module.exports = router;

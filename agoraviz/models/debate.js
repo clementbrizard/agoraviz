@@ -11,8 +11,9 @@ exports.one = (db, id, cb) => {
   db.get('debatcollection').find({
     _id: id,
   }, {}, (err, docs) => {
-    if (err) return cb(err);
-    return cb(null, docs[0]);
+    return err ?
+      cb(err)
+      : cb(null, docs[0]);
   });
 };
 
@@ -21,7 +22,19 @@ exports.new = (db, obj, cb) => {
   db.get('debatcollection').insert({
     question: obj.question,
   }, {}, (err, doc) => {
-    if (err) return cb(err);
-    return cb(null, doc);
+    return err ?
+      cb(err)
+      : cb(null, doc);
+  });
+};
+
+// Delete a debate
+exports.delete = (db, id, cb) => {
+  db.get('debatcollection').remove({
+    _id: id,
+  }, {}, (err) => {
+    return err ?
+      cb(err)
+      : cb(null);
   });
 };

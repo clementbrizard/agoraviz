@@ -20,14 +20,21 @@
             <thead>
               <tr>
                 <th>Titre</th>
-                <th>Supprimer</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               <%debates.forEach(function(debate) { %>
                 <tr>
                   <td><%= debate.question %></td>
-                  <td>Supprimer</td>
+                  <td>
+                    <form id="deleteDebate/<%=debate._id %>" method="POST" action="/debates/delete/<%= debate._id%>"></form>
+                    <a onClick="document.forms['deleteDebate/<%=debate._id %>'].submit()" class="btn btn-danger">
+                      <i class="fa fa-trash-o">
+                        Delete
+                      </i>
+                    </a>
+                  </td>
                 </tr>
               <% }); %>
             </tbody>
