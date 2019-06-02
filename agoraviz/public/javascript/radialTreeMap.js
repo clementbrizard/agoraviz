@@ -74,9 +74,16 @@ var div = d3.select("body").append("div")
 var selected=null;
 $("#addNode").click(function() {
 
+  let parent = "";
+  if (data.length == 0) {
+    parent = "";
+  } else {
+    parent = selected.data._id;
+  }
+
   const newDebate = {
     debate: debateJSON._id,
-    parent: selected.data._id,
+    parent: parent,
     name: $("#label").val(),
     value: $("#comment").val(),
   };
