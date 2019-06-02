@@ -19,7 +19,7 @@ router.post('/', (req, res) => {
       res.send('Error when trying to create a debate');
     }
 
-    res.redirect('/');
+    res.redirect('/debates');
   });
 });
 
