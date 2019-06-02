@@ -85,7 +85,9 @@ $("#addNode").click(function() {
     type: 'POST',
     data: newDebate,
     url: '/contributions/',
-    dataType: 'JSON'
+    dataType: 'text',
+  }).done(function(response) {
+    location.reload(true);
   });
 });
 

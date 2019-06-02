@@ -22,7 +22,7 @@ router.post('/', (req, res) => {
       res.send('Error when trying to create a contribution');
     }
 
-    res.redirect(`/debates/show/${obj.debate}`);
+    res.redirect('back');
   })
 
 })
