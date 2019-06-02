@@ -26,12 +26,13 @@ router.post('/', (req, res) => {
 // Read list of existing debates
 router.get('/', (req, res) => {
   getJSON('http://localhost:3000/api/debates', (err, docs) => {
-  res.render(
-    'pages/debate/debates', {
-      debates: docs,
-    },
-  );
-});
+    res.render(
+      'pages/debate/debates', {
+        title: 'Débats',
+        debates: docs,
+      },
+    );
+  });
 });
 
 // Delete a debate
@@ -47,6 +48,7 @@ router.post('/delete/:id', (req, res) => {
   });
 });
 
+
 /*
     Show pages
  */
@@ -55,7 +57,7 @@ router.post('/delete/:id', (req, res) => {
 router.get('/new', (req, res) => {
   res.render(
     'pages/debate/newDebate', {
-      title: 'Lancer un nouveau débat',
+      title: 'Nouveau débat',
     },
   );
 });
@@ -66,6 +68,7 @@ router.get('/show/:id', (req, res) => {
   getJSON(`http://localhost:3000/api/debates/${id}`, (err, doc) => {
     res.render(
       'pages/debate/debate', {
+        title: doc.question,
         debate: doc,
       },
     );
