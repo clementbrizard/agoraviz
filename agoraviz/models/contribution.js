@@ -11,3 +11,17 @@ exports.all = (db, debate, cb) => {
       : cb(null, docs);
   });
 };
+
+// Create a new contribution
+exports.new = (db, obj, cb) => {
+  db.get('contribcollection').insert({
+    debate: ObjectId(obj.debate),
+    parent: ObjectId(obj.parent),
+    name: obj.name,
+    value: obj.value,
+  }, {}, (err, docs) => {
+    return err ?
+      cb(err)
+      : cb(null, docs[0]);
+  })
+};

@@ -48,8 +48,9 @@ databis = [
   {"name": "Alien15", "value":"Dies iræ, dies illa, dies tribulationis et angustiæ, dies calamitatis et miseriæ, dies tenebrarum et caliginis, dies nebulæ et turbinis, dies tubæ et clangoris super civitates munitas et super angulos excelsos.", "parent": "Cain"}
 ]
 
-data = contributions;
-alert(data);
+var data = contributions;
+const debateJSON = debate;
+
 
 /* === Création du graphe === */
 
@@ -123,6 +124,20 @@ var div = d3.select("body").append("div")
 var selected=null;
 $("#addNode").click(function() {
 
+  const newDebate = {
+    debate: debateJSON._id,
+    parent: selected.data._id,
+    name: $("#label").val(),
+    value: $("#comment").val(),
+  };
+
+  $.ajax({
+    type: 'POST',
+    data: newDebate,
+    url: '/contributions/',
+    dataType: 'JSON'
+  });
+
   var newNodeObj = {
     type: 'resource-delete',
     name: $("#label").val(),
@@ -130,6 +145,7 @@ $("#addNode").click(function() {
     children: [],
     value: $("#comment").val()
   };
+
   var newNode = d3.hierarchy(newNodeObj);
   newNode.depth = selected.depth + 1;
   newNode.height = selected.height - 1;

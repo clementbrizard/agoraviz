@@ -36,11 +36,18 @@
         </div>
         <button id="btnAddContrib" type="submit">Ajouter ma contribution</button>
     </form>
+    <!--
+    <form id="addContribForm" method="post" action="/contributions/">
+        <input type="text" placeholder="Titre" name="name" />
+        <input type="text" placeholder="Commentaire" name="value" />
+        <button type="submit">Ajouter ma contribution</button>
+    </form>-->
     <div>
         Titre :
         <input type="text" id="label"><br>
         Commentaire : <br>
         <textarea id="comment"></textarea> <br>
+
         <button id="addNode">Ajouter un noeud</button>
     </div>
     <svg width="960" height="960"></svg>
@@ -49,7 +56,8 @@
 
     <script type="text/javascript" src="/static/javascript/jquery.min.js"></script>
     <script>
-      const contributions = <%- JSON.stringify(contributions) %>;
+      var contributions = <%- JSON.stringify(contributions) %>;
+      const debate = <%- JSON.stringify(debate) %>;
     </script>
     <script type="text/javascript" src="/static/javascript/d3.v4.min.js"></script>
     <script type="text/javascript" src="/static/javascript/radialTreeMap.js"></script>

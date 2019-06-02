@@ -8,12 +8,12 @@ exports.all = (db, cb) => {
 
 // Get one debate
 exports.one = (db, id, cb) => {
-  db.get('debatcollection').find({
+  db.get('debatcollection').findOne({
     _id: id,
-  }, {}, (err, docs) => {
+  }, {}, (err, doc) => {
     return err ?
       cb(err)
-      : cb(null, docs[0]);
+      : cb(null, doc);
   });
 };
 
