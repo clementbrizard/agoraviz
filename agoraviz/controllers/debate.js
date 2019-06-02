@@ -48,10 +48,10 @@ router.post('/delete/:id', (req, res) => {
 });
 
 /*
-    Get pages
+    Show pages
  */
 
-// Get new debate form
+// Show new debate form
 router.get('/new', (req, res) => {
   res.render(
     'pages/debate/newDebate', {
@@ -59,5 +59,19 @@ router.get('/new', (req, res) => {
     },
   );
 });
+
+// Show debate
+router.get('/show/:id', (req, res) => {
+  const id = req.params.id;
+  getJSON(`http://localhost:3000/api/debates/${id}`, (err, doc) => {
+    res.render(
+      'pages/debate/debate', {
+        debate: doc,
+      },
+    );
+  });
+});
+
+
 
 module.exports = router;
