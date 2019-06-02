@@ -1,6 +1,6 @@
 /* === Dataset === */
 
-data = [
+databis = [
   {"name": "Eve",   "value":"Dies iræ, dies illa, dies tribulationis et angustiæ, dies calamitatis et miseriæ, dies tenebrarum et caliginis, dies nebulæ et turbinis, dies tubæ et clangoris super civitates munitas et super angulos excelsos.", "parent": ""},
   {"name": "Seth",  "value":"Dies iræ, dies illa, dies tribulationis et angustiæ, dies calamitatis et miseriæ, dies tenebrarum et caliginis, dies nebulæ et turbinis, dies tubæ et clangoris super civitates munitas et super angulos excelsos.", "parent": "Eve"},
   {"name": "Cain",  "value":"Dies iræ, dies illa, dies tribulationis et angustiæ, dies calamitatis et miseriæ, dies tenebrarum et caliginis, dies nebulæ et turbinis, dies tubæ et clangoris super civitates munitas et super angulos excelsos.", "parent": "Eve"},
@@ -48,6 +48,8 @@ data = [
   {"name": "Alien15", "value":"Dies iræ, dies illa, dies tribulationis et angustiæ, dies calamitatis et miseriæ, dies tenebrarum et caliginis, dies nebulæ et turbinis, dies tubæ et clangoris super civitates munitas et super angulos excelsos.", "parent": "Cain"}
 ]
 
+data = contributions;
+alert(data);
 
 /* === Création du graphe === */
 
@@ -61,17 +63,15 @@ var svg = d3.select("svg"),
 var stratify = d3.stratify()
     .id(function(d) { return d.name; })
     .parentId(function(d) { return d.parent; })
-   
+
 
 var tree = d3.tree()
     .size([360, 500])
     .separation(function(a, b) { return (a.parent == b.parent ? 1 : 2) / a.depth; });
 
+var root = tree(stratify(data));
 
-
-  var root = tree(stratify(data));
-
-  // Arcs 
+  // Arcs
 
   var link = g.selectAll(".link")
     .data(root.descendants().slice(1))
@@ -86,7 +86,7 @@ var tree = d3.tree()
         });
 
 
-  // Noeuds 
+  // Noeuds
 
   var node = g.selectAll(".node")
     .data(root.descendants())
@@ -97,12 +97,12 @@ var tree = d3.tree()
   node.append("circle")
         .attr("r", 4.5)
         .on('click', click)
-        .on("mouseover", handleMouseOver)         
+        .on("mouseover", handleMouseOver)
         .on("mouseout", handleMouseOut);
 
 
 
-  // Labels 
+  // Labels
 
   node.append("text")
       .attr("dy", ".31em")
@@ -111,10 +111,10 @@ var tree = d3.tree()
       .attr("transform", function(d) { return "rotate(" + (d.x < 180 ? d.x - 90 : d.x + 90) + ")"; })
       .text(function(d) { return d.id.substring(d.id.lastIndexOf(".") + 1); });
 
-// Tooltips 
+// Tooltips
 
-var div = d3.select("body").append("div") 
-    .attr("class", "tooltip")       
+var div = d3.select("body").append("div")
+    .attr("class", "tooltip")
     .style("opacity", 0);
 
 
@@ -131,18 +131,18 @@ $("#addNode").click(function() {
     value: $("#comment").val()
   };
   var newNode = d3.hierarchy(newNodeObj);
-  newNode.depth = selected.depth + 1; 
+  newNode.depth = selected.depth + 1;
   newNode.height = selected.height - 1;
-  newNode.parent = selected; 
+  newNode.parent = selected;
   newNode.id =$("#label").val(); // label
-  
+
   if(!selected.children){
     selected.children = [];
     selected.data.children = [];
   }
   selected.children.push(newNode);
   update(selected);
-  
+
 });
 
 
@@ -159,22 +159,22 @@ function click(d) {
       .style('fill', function(d) {return "orange"});
   }
 
-function handleMouseOver(d) {    
-   div.transition()    
-                .duration(200)    
-                .style("opacity", .9); 
+function handleMouseOver(d) {
+   div.transition()
+                .duration(200)
+                .style("opacity", .9);
 
-   div .html("<br/>"  + d.data.value)  
-                .style("left", (d3.event.pageX) + "px")   
-                .style("top", (d3.event.pageY - 28) + "px");           
+   div .html("<br/>"  + d.data.value)
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
 }
 
-function handleMouseOut(d) {   
-            div.transition()    
-                .duration(500)    
-                .style("opacity", 0); 
+function handleMouseOut(d) {
+            div.transition()
+                .duration(500)
+                .style("opacity", 0);
 }
-           
+
 function update(source) {
 
   var duration=700,
@@ -184,14 +184,14 @@ function update(source) {
   var nodes = treeData.descendants(),
   links = treeData.descendants().slice(1);
 
-  var link = g.selectAll('newLink') 
+  var link = g.selectAll('newLink')
       .data(links, function(d) {
-        return d.id; 
+        return d.id;
       });
 
   /* ====  Màj des arcs ===== */
 
-  // Calcul des coordonnées : 
+  // Calcul des coordonnées :
   var linkEnter = link.enter().
     append('path').
     attr("class", "link").
@@ -202,21 +202,21 @@ function update(source) {
               + "C" + project(d.x, (d.y + d.parent.y) / 2)
               + " " + project(d.parent.x, (d.y + d.parent.y) / 2)
               + " " + project(d.parent.x, d.parent.y);
-        });  
+        });
 
-    // Suppression des anciens arcs : 
+    // Suppression des anciens arcs :
     temp.attr("fill-opacity", 1)
             .attr("stroke-opacity", 1)
             .transition()
                 .duration(700)
                 .attr("fill-opacity", 0)
                 .attr("stroke-opacity", 0)
-                .remove(); 
+                .remove();
 
 
   /* ====  Màj des noeuds ===== */
 
-  var node = g.selectAll('.node') 
+  var node = g.selectAll('.node')
     .data(nodes, function(d) {
       return d.id || d.name;
     });
@@ -231,14 +231,14 @@ function update(source) {
   nodeEnter.append('circle')
     .attr("r", 4.5)
     .on('click', click)
-    .on("mouseover", handleMouseOver)         
+    .on("mouseover", handleMouseOver)
     .on("mouseout", handleMouseOut);
 
   var nodeUpdate = nodeEnter.merge(node);
   nodeUpdate.transition().
     duration(duration)
     .attr("transform", function(d) { return "translate(" + project(d.x, d.y) + ")"; })
-  
+
   nodeUpdate.select('circle.node')
     .attr("r", 4.5)
     .attr('cursor', 'pointer');
@@ -251,7 +251,7 @@ function update(source) {
             .duration(500)
             .attr("fill-opacity", 0)
             .attr("stroke-opacity", 0)
-            .remove(); 
+            .remove();
   nodeExit.select('circle').attr('r', 0);
   nodes.forEach(function(d){
     d.x0 = d.x;

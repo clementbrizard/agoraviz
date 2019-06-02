@@ -63,18 +63,17 @@ router.get('/new', (req, res) => {
 });
 
 // Show debate
-router.get('/show/:id', (req, res) => {
+router.get('/show/:id', async (req, res) => {
   const id = req.params.id;
-  getJSON(`http://localhost:3000/api/debates/${id}`, (err, doc) => {
-    res.render(
-      'pages/debate/debate', {
-        title: doc.question,
-        debate: doc,
-      },
-    );
-  });
+  const debate = await getJSON(`http://localhost:3000/api/debates/${id}`);
+  const contributions = await getJSON(`http://localhost:3000/api/contributions/${id}`);
+  res.render(
+    'pages/debate/debate', {
+      title: debate.question,
+      debate: debate,
+      contributions: contributions,
+    },
+  );
 });
-
-
 
 module.exports = router;

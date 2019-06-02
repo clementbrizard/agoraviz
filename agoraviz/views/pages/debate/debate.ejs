@@ -45,10 +45,14 @@
     </div>
     <svg width="960" height="960"></svg>
 </div>
-</body>
-<script type="text/javascript" src="/static/javascript/d3.v4.min.js"></script>
-<script type="text/javascript" src="/static/javascript/jquery.min.js"></script>
-<script type="text/javascript" src="/static/javascript/radialTreeMap.js"></script>
+
+
+    <script type="text/javascript" src="/static/javascript/jquery.min.js"></script>
+    <script>
+      const contributions = <%- JSON.stringify(contributions) %>;
+    </script>
+    <script type="text/javascript" src="/static/javascript/d3.v4.min.js"></script>
+    <script type="text/javascript" src="/static/javascript/radialTreeMap.js"></script>
 </body>
 </html>
 
