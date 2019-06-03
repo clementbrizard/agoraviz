@@ -9,22 +9,33 @@
     <% include ../../partials/header %>
 </header>
 <h1>Agoraviz</h1>
-<h2><%= debate.question%></h2>
-<div class="container col-md-4">
-    Type:
-    <select id="type" name="type">
-        <option value="ouicar">Oui, car...</option>
-        <option value="ouimais">Oui, mais...</option>
-        <option value="noncar">Non, car...</option>
-        <option value="nonmais">Non, mais...</option>
-    </select>
-    Titre :
-    <input type="text" id="label"><br>
-    Commentaire : <br>
-    <textarea id="comment"></textarea> <br>
-    Auteur.e :
-    <input type="text" id="auteur"><br>
-    <button id="addNode">Ajouter ma contribution</button>
+
+<div id="form-container" class="container col-md-4">
+    <h2 id="form-title"><%= debate.question%></h2>
+    <div class="row">
+        Type:
+        <select id="type" name="type">
+            <option value="ouicar">Oui, car...</option>
+            <option value="ouimais">Oui, mais...</option>
+            <option value="noncar">Non, car...</option>
+            <option value="nonmais">Non, mais...</option>
+        </select>
+    </div>
+    <div class="row">
+        Titre :
+        <input type="text" id="label"><br>
+    </div>
+    <div class="row">
+        Commentaire : <br>
+        <textarea id="comment"></textarea> <br>
+    </div>
+    <div class="row">
+        Auteur.e :
+        <input type="text" id="auteur"><br>
+    </div>     
+    <div class="row submit-row">
+        <button class="btn btn-block submit-form" id="addNode">Ajouter ma contribution</button>
+    </div>
 </div>
 <div class=" container col-md-8">
     <svg width="960" height="960"></svg>
