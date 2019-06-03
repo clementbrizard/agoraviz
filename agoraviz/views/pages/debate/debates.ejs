@@ -16,6 +16,8 @@
         <thead>
         <tr>
           <th>Titre</th>
+          <th>Définitions</th>
+          <th>Sources</th>
           <th>Actions</th>
         </tr>
         </thead>
@@ -23,6 +25,8 @@
         <%debates.forEach(function(debate) { %>
           <tr>
             <td><%= debate.question %></td>
+            <td><%= debate.definitions%></td>
+            <td><%= debate.sources%></td>
             <td>
               <form id="deleteDebate/<%= debate._id %>" method="POST" action="/debates/delete/<%= debate._id %>"></form>
               <form id="showDebate/<%= debate._id %>" method="GET" action="/debates/show/<%= debate._id %>"></form>
