@@ -1,5 +1,9 @@
-var data = contributions
+var data = [];
+data.push({"_id" : debate._id, "parent" : "", "name" : debate.question, "value":""});
+contributions.forEach(function(c){data.push(c)});
 const debateJSON = debate;
+console.log(contributions);
+console.log(data);
 
 
 /* === Création du graphe === */
