@@ -1,0 +1,32 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <% include ../../partials/head %>
+    <title><%= title%></title>
+</head>
+<body>
+<header>
+    <% include ../../partials/header %>
+</header>
+<h1>Agoraviz</h1>
+<h2><%= debate.question%></h2>
+<div class="container col-md-4">
+    Titre :
+    <input type="text" id="label"><br>
+    Commentaire : <br>
+    <textarea id="comment"></textarea> <br>
+    <button id="addNode">Ajouter ma contribution</button>
+</div>
+<div class=" container col-md-8">
+    <svg width="960" height="960"></svg>
+</div>
+<script type="text/javascript" src="/static/javascript/jquery.min.js"></script>
+<script>
+  var contributions = <%- JSON.stringify(contributions) %>;
+  const debate = <%- JSON.stringify(debate) %>;
+</script>
+<script type="text/javascript" src="/static/javascript/d3.v4.min.js"></script>
+<script type="text/javascript" src="/static/javascript/radialTreeMap.js"></script>
+</body>
+</html>
+

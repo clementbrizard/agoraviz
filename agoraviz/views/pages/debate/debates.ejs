@@ -1,0 +1,54 @@
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+  <% include ../../partials/head %>
+  <title><%= title %></title>
+</head>
+<body>
+<header>
+  <% include ../../partials/header %>
+  <h1>Débats en cours</h1>
+</header>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <table id="debates" class="table table-striped table-bordered">
+        <thead>
+        <tr>
+          <th>Titre</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%debates.forEach(function(debate) { %>
+          <tr>
+            <td><%= debate.question %></td>
+            <td>
+              <form id="deleteDebate/<%= debate._id %>" method="POST" action="/debates/delete/<%= debate._id %>"></form>
+              <form id="showDebate/<%= debate._id %>" method="GET" action="/debates/show/<%= debate._id %>"></form>
+              <a onClick="document.forms['deleteDebate/<%= debate._id %>'].submit()" class="btn btn-danger">
+                <i class="fas fa-trash-alt">
+                  Delete
+                </i>
+              </a>
+              <a onClick="document.forms['showDebate/<%= debate._id %>'].submit()" class="btn btn-info">
+                <i class="far fa-comments">
+                  Participate
+                </i>
+              </a>
+            </td>
+          </tr>
+        <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<footer>
+  <% include ../../partials/footer %>
+</footer>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+</body>
+</html>
+

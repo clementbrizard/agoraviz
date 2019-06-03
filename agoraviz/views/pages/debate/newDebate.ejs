@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <% include ../partials/head %>
+    <% include ../../partials/head %>
+    <title><%= title %></title>
   </head>
   <body>
-    <h1><%= title %></h1>
+    <h1>Lancer un nouveau débat</h1>
     <header>
-    <% include ../partials/header %>
+    <% include ../../partials/header %>
     </header>
-    <form id="formAddDebat" name="adddebat" method="post" action="/adddebat">
+    <form id="formAddDebat" name="adddebat" method="post" action="/debates/">
       <input id="inputDebatQuestion" type="text" placeholder="question" name="question" />
       <button id="btnAddDebat" type="submit">Lancer le débat</button>
     </form>
@@ -16,9 +17,9 @@
 
 
     <footer>
-      <% include ../partials/footer %>
+      <% include ../../partials/footer %>
     </footer>
-    
+
 
   </body>
 </html>
