@@ -21,6 +21,8 @@ exports.one = (db, id, cb) => {
 exports.new = (db, obj, cb) => {
   db.get('debatcollection').insert({
     question: obj.question,
+    sources: obj.sources,
+    definitions: obj.definitions,
   }, {}, (err, doc) => {
     return err ?
       cb(err)

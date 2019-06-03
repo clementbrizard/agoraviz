@@ -12,6 +12,8 @@ const router = express.Router();
 router.post('/', (req, res) => {
   const obj = {
     question: req.body.question,
+    definitions: req.body.definitions,
+    sources: req.body.sources,
   };
 
   Debate.new(req.db, obj, (err) => {
