@@ -1,10 +1,6 @@
-<<<<<<< HEAD
 var data = [];
 data.push({"_id" : debate._id, "parent" : "", "name" : debate.question, "value":""});
 contributions.forEach(function(c){data.push(c)});
-=======
-var data = contributions
->>>>>>> 85a4e9688367143528ab24c718eefa4848c814fb
 const debateJSON = debate;
 console.log(contributions);
 console.log(data);
