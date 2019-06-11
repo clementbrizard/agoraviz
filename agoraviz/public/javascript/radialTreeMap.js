@@ -1,5 +1,9 @@
-var data = contributions;
+var data = [];
+data.push({"_id" : debate._id, "parent" : "", "name" : debate.question, "value":""});
+contributions.forEach(function(c){data.push(c)});
 const debateJSON = debate;
+console.log(contributions);
+console.log(data);
 
 
 /* === Création du graphe === */
@@ -19,6 +23,7 @@ var stratify = d3.stratify()
 var tree = d3.tree()
     .size([360, 500])
     .separation(function(a, b) { return (a.parent == b.parent ? 1 : 2) / a.depth; });
+
 
 var root = tree(stratify(data));
 
@@ -76,21 +81,23 @@ $("#addNode").click(function() {
 
   let parent = "";
   if (data.length == 0) {
-    parent = "";
+    parent = debateJSON._id;
   } else {
     parent = selected.data._id;
   }
 
-  const newDebate = {
+  const newContrib = {
     debate: debateJSON._id,
     parent: parent,
+    type: $("#type").val(),
     name: $("#label").val(),
     value: $("#comment").val(),
+    auteur: $("#auteur").val()
   };
 
   $.ajax({
     type: 'POST',
-    data: newDebate,
+    data: newContrib,
     url: '/contributions/',
     dataType: 'text',
   }).done(function(response) {

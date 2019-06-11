@@ -10,11 +10,27 @@ const router = express.Router();
 
 // Create a new contribution
 router.post('/', (req, res) => {
+
+
+  var dateNewContrib = new Date();
+  var jour = dateNewContrib.getDate();
+  var mois = dateNewContrib.getMonth()+1;
+  var annee = dateNewContrib.getFullYear();
+  var heure = dateNewContrib.getHours();
+  var minute = dateNewContrib.getMinutes();
+  var seconde = dateNewContrib.getSeconds();
+
+  var contribDateHeure =jour+'/'+mois+'/'+annee+':'+heure+'H'+minute+'min'+seconde+'s';
+
+
   const obj = {
     debate: req.body.debate,
     parent: req.body.parent,
+    type: req.body.type,
     name: req.body.name,
-    value: req.body.value
+    value: req.body.value,
+    auteur: req.body.auteur,
+    timestamp: contribDateHeure
   };
 
   Contribution.new(req.db, obj, (err) => {
