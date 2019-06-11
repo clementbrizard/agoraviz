@@ -13,45 +13,6 @@ exports.all = (db, debate, cb) => {
 };
 
 
-exports.getByDate = (db, debate, end, cb) => {
-	  const debateId = debate;
-	  db.get('contribcollection').find({
-	    debate: ObjectId(debateId),
-	    timestamp:{$lte:new Date(end)}
-	  }, {},  (err, docs) => {
-	    return err ?
-	      cb(err)
-	      : cb(null, docs);
-	  });
-	};
-	
-	
-	exports.countByDay = (db, debate, cb) => {
-	    const debateId = debate;
-	    db.get('contribcollection').aggregate(
-	        [{
-	            $group: {
-	                _id: {
-	                    month: {
-	                        $month: "$timestamp"
-	                    },
-	                    day: {
-	                        $dayOfMonth: "$timestamp"
-	                    },
-	                    year: {
-	                        $year: "$timestamp"
-	                    }
-	                },
-	                count: {
-	                    $sum: 1
-	                }
-	            }
-	        }], (err, docs) => {
-	            return err ?
-	                cb(err) :
-	                cb(null, docs);
-	        })
-	};
 
 
 // Create a new contribution

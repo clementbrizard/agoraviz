@@ -37,10 +37,12 @@ exports.one = (db, id, cb) => {
 
 // Create a new synthese
 exports.new = (db, obj, cb) => {
+
+
   db.get('synthesecollection').insert({
     description: obj.description,
     contributions: obj.contributions,
-    debate: obj.debate,
+    debate: ObjectId(obj.debate),
     auteur: obj.auteur,
     timestamp: obj.timestamp,
   }, {}, (err, doc) => {

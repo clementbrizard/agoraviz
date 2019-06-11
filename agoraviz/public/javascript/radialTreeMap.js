@@ -151,12 +151,12 @@ $("#addSynthese").click(function() {
 
   const newSynthese = {
     description: $("#description").val(),
-    contributions: selectedForSynthese,
+    contributions: JSON.stringify(selectedForSynthese),
     debate: debateJSON._id,
     auteur: $("#auteursynthese").val(),
   };
 
-
+  console.log("selectedForSynthese:"+newSynthese.contributions);
 
   $.ajax({
     type: 'POST',
