@@ -15,7 +15,7 @@ Squelette de l'appli créé en suivant [ce tuto](https://closebrace.com/tutorial
 2. Installer node et npm
 3. [Installer MongoDB](https://docs.mongodb.com/manual/administration/install-community/)
 4. Dans le dossier du projet, installer les dépendances avec `npm install`
-5. Lancer le serveur avec `npm start`, mongodb avec `sudo service mongod start`, et admirer cette appli de toute beauté à l'adresse http://localhost:3000/debatslist (pour l'instant)
+5. Lancer le serveur avec `npm start`, mongodb avec `sudo service mongod start`, et admirer cette appli de toute beauté à l'adresse http://localhost:3000 (pour l'instant)
 
 ### Aide Gitflow
 https://wiki.picasoft.net/doku.php?id=txs:peertube-a18:github_tips
