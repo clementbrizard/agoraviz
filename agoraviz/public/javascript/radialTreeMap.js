@@ -1,12 +1,8 @@
-var data = [],
+var data = [];
 selectedForSynthese = [];
 data.push({"_id" : debate._id, "parent" : "", "name" : debate.question, "value":""});
 contributions.forEach(function(c){data.push(c)});
 const debateJSON = debate;
-console.log(contributions);
-console.log(data);
-createGraph(data);
-
 
 /* === Création du graphe === */
 
@@ -118,94 +114,60 @@ var div = d3.select("body").append("div")
 var selected=null;
 $("#addNode").click(function() {
 
-	  let parent = "";
-	  if (data.length == 0) {
-	    parent = debateJSON._id;
-	  } else {
-	    parent = selected.data._id;
-	  }
+  let parent = "";
+  if (data.length == 0) {
+    parent = debateJSON._id;
+  } else {
+    parent = selected.data._id;
+  }
 
-	  console.log("parent", parent); 
-	  
-	  const newContrib = {
-	    debate: debateJSON._id,
-	    parent: parent,
-	    type: $("#type").val(),
-	    name: $("#label").val(),
-	    value: $("#comment").val(),
-	    auteur: $("#auteur").val()
-	  };
+  const newContrib = {
+    debate: debateJSON._id,
+    parent: parent,
+    type: $("#type").val(),
+    name: $("#label").val(),
+    value: $("#comment").val(),
+    auteur: $("#auteur").val()
+  };
 
-	  $.ajax({
-	    type: 'POST',
-	    data: newContrib,
-	    url: '/contributions/',
-	    dataType: 'text',
-	  }).done(function(response) {
+  $.ajax({
+    type: 'POST',
+    data: newContrib,
+    url: '/contributions/',
+    dataType: 'text',
+  }).done(function(response) {
+    location.reload(true);
+  });
+});
 
+/* === Ajout d'une synthèse === */
 
-		  var newNodeObj = {
-				    type: $("#type").val(),
-				    name: $("#label").val(),
-				    attributes: [],
-				    children: [],
-				    value: $("#comment").val()
-				  };
-				  var newNode = d3.hierarchy(newNodeObj);
-				  newNode.depth = selected.depth + 1;
-				  newNode.height = selected.height - 1;
-				  newNode.parent = selected;
-				  newNode.id =$("#label").val(); // label
-
-				  if(!selected.children){
-				    selected.children = [];
-				    selected.data.children = [];
-				  }
-				  selected.children.push(newNode);
-				  update(selected);
-
-	  });
-	});
 
 
 
 $("#addSynthese").click(function() {
 
-	  const newSynthese = {
-	    description: $("#description").val(),
-	    contributions: JSON.stringify(selectedForSynthese),
-	    debate: debateJSON._id,
-	    auteur: $("#auteursynthese").val(),
-	  };
 
-	  console.log("selectedForSynthese:"+newSynthese.contributions);
 
-	  $.ajax({
-	    type: 'POST',
-	    data: newSynthese,
-	    url: '/syntheses/',
-	    dataType: 'text',
-	  }).done(function(response) {
-	    location.reload(true);
-	  });
-	});
+  const newSynthese = {
+    description: $("#description").val(),
+    contributions: selectedForSynthese,
+    debate: debateJSON._id,
+    auteur: $("#auteursynthese").val(),
+  };
 
 
 
-$("#end").click(function(){
-	$.ajax({
-	    type: 'GET',
-	    url: '/api/contributions/'+debateJSON._id+'/'+$("#dateValue").val(),
-	    dataType: 'text',
-	  }).done(function(response) {
-		  data=JSON.parse(response);
-		  data.push({"_id" : debate._id, "parent" : "", "name" : debate.question, "value":""})	
-		  console.log(data);
-		  $("svg").empty();
-		  createGraph(data);
-	    
-	  });
-})
+  $.ajax({
+    type: 'POST',
+    data: newSynthese,
+    url: '/syntheses/',
+    dataType: 'text',
+  }).done(function(response) {
+    location.reload(true);
+  });
+});
+
 
 
 function project(x, y) {
@@ -218,9 +180,8 @@ function click(d) {
     document.getElementById('addNode').disabled = false;
     d3.select(this).attr("r", function(d) {  return this.r.baseVal.value*2 })
       .style('fill', function(d) {return "orange"});
-    
     selectedForSynthese.push(selected.data._id);
-    
+
   }
 
 function handleMouseOver(d) {

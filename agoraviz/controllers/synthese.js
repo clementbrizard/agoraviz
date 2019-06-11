@@ -20,26 +20,18 @@ router.post('/', (req, res) => {
   var seconde = dateNewSynthese.getSeconds();
 
   var syntheseDateHeure =jour+'/'+mois+'/'+annee+':'+heure+'H'+minute+'min'+seconde+'s';
-  
-  /*
-  contribsToInsert = [];
-
-  req.body.contributions.forEach(function (c){
-    contribsToInsert.push(ObjectId(c));
-  })*/
 
 
   const obj = {
     description: req.body.description,
     contributions: req.body.contributions,
-
     debate: req.body.debate,
     auteur: req.body.auteur,
     timestamp: syntheseDateHeure,
   };
 
+  console.log(obj.contributions);
 
-  console.log('ajout synthese');
   Synthese.new(req.db, obj, (err) => {
     if (err) {
       res.send('Error when trying to create a synthese');
@@ -50,7 +42,7 @@ router.post('/', (req, res) => {
 });
 
 
-
+/*
 // Delete a synthese
 router.post('/delete/:id', (req, res) => {
   const id = req.params.id;
@@ -64,6 +56,7 @@ router.post('/delete/:id', (req, res) => {
   });
 });
 
+*/
 
 
 module.exports = router;

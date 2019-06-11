@@ -69,14 +69,15 @@ router.get('/show/:id', async (req, res) => {
   const id = req.params.id;
   const debate = await getJSON(`http://localhost:3000/api/debates/${id}`);
   const contributions = await getJSON(`http://localhost:3000/api/contributions/${id}`);
- // const syntheses = await getJSON(`http://localhost:3000/api/syntheses/${id}`);
-
+  const syntheses = await getJSON(`http://localhost:3000/api/syntheses/${id}`);
+  console.log(contributions);
+  console.log(syntheses);
   res.render(
     'pages/debate/debate', {
       title: debate.question,
       debate: debate,
-      contributions: contributions
-      //,syntheses: syntheses,
+      contributions: contributions,
+      syntheses: syntheses,
     },
   );
 });
