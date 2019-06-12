@@ -13,7 +13,17 @@ exports.all = (db, debate, cb) => {
 };
 
 
-
+exports.getByDate = (db, debate, end, cb) => {
+	  const debateId = debate;
+	  db.get('contribcollection').find({
+	    debate: ObjectId(debateId),
+	    timestamp:{$gte:new Date(end)}
+	  }, {},  (err, docs) => {
+	    return err ?
+	      cb(err)
+	      : cb(null, docs);
+	  });
+	};
 
 // Create a new contribution
 exports.new = (db, obj, cb) => {
