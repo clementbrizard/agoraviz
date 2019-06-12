@@ -11,6 +11,17 @@ a {
   color: #00B7FF;
 }
 
+
+
+.masthead {
+  height: 50%;
+  max-width: 100%;
+  background-image: url('../images/agoravizbannercrop.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
 #wrapper {
 	padding-left:312px;
 	position:relative;
@@ -67,7 +78,9 @@ fieldset {
 	background:#00BCD4;
 	height:40px;
 	display:inline-block;
-	border-radius:0px;
+	border-radius:5px;
+	border-width:5px;
+	border-color: #2087a6;
 	margin:5px 0px;
 	-webkit-transition: all .3s ease-in-out;
 	-moz-transition: all .3s ease-in-out;
