@@ -4,6 +4,7 @@ data.push({"_id" : debate._id, "parent" : "", "name" : debate.question, "value":
 contributions.forEach(function(c){data.push(c)});
 const debateJSON = debate;
 
+
 /* === Création du graphe === */
 
 function createGraph(data){
@@ -233,6 +234,16 @@ $("#addSynthese").click(function() {
   });
 });
 
+
+$("#end").click(function(){
+	$.ajax({
+	    type: 'GET',
+	    url: '/api/contributions/'+debateJSON._id+'/'+$("#dateValue").val(),
+	    dataType: 'text',
+	  }).done(function(response) {
+	    console.log(response);
+	  });
+})
 
 
 function project(x, y) {
