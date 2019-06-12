@@ -6,6 +6,7 @@ console.log(contributions);
 console.log(data);
 
 
+
 /* === Création du graphe === */
 
 var svg = d3.select("svg"),
@@ -105,6 +106,16 @@ $("#addNode").click(function() {
   });
 });
 
+
+$("#end").click(function(){
+	$.ajax({
+	    type: 'GET',
+	    url: '/api/contributions/'+debateJSON._id+'/'+$("#dateValue").val(),
+	    dataType: 'text',
+	  }).done(function(response) {
+	    console.log(response);
+	  });
+})
 
 
 function project(x, y) {
