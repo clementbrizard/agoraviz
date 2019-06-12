@@ -11,4 +11,20 @@ router.get('/:debateId', (req, res) => {
   });
 });
 
+// Get all contributions of a given synthese
+router.get('/synthese/:syntheseId', (req, res) => {
+  const syntheseId = req.params.syntheseId;
+  Contribution.allsynthese(req.db, syntheseId, (err, contributions) => {
+    res.json(contributions);
+  });
+});
+
+router.get('/:debateId/:end', (req, res) => {
+	  const debateId = req.params.debateId;
+	  const end = req.params.end;
+	  Contribution.getByDate(req.db, debateId, end, (err, contributions) => {
+	    res.json(contributions);
+	  });
+	});
+
 module.exports = router;
