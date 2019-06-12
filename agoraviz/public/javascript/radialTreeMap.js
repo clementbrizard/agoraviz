@@ -1,6 +1,6 @@
 var data = [];
 selectedForSynthese = [];
-data.push({"_id" : debate._id, "parent" : "", "name" : debate.question, "value":""});
+data.push({"_id" : debate._id, "parent" : "", "name" : debate.question, "value":"", "auteur":""});
 contributions.forEach(function(c){data.push(c)});
 const debateJSON = debate;
 
@@ -100,13 +100,78 @@ function createGraph(data){
 
 
 
+
+var stratify = d3.stratify()
+    .id(function(d) { return d._id; })
+    .parentId(function(d) { return d.parent; })
+
 }
 
-//Tooltips
+var tree = d3.tree()
+    .size([360, 500])
+    .separation(function(a, b) { return (a.parent == b.parent ? 1 : 2) / a.depth; });
+
+
+var root = tree(stratify(data));
+
+// Arcs
+
+var link = g.selectAll(".link")
+  .data(root.descendants().slice(1))
+  .enter().append("path")
+      .attr("class", "link")
+      .style("stroke", "#8da0cb")
+      .attr("d", function(d) {
+        return "M" + project(d.x, d.y)
+            + "C" + project(d.x, (d.y + d.parent.y)  /2)
+            + " " + project(d.parent.x, (d.y + d.parent.y) / 2)
+            + " " + project(d.parent.x, d.parent.y);
+      });
+
+
+// Noeuds
+
+var node = g.selectAll(".node")
+  .data(root.descendants())
+  .enter().append("g")
+    .attr("class", function(d) { return "node" + (d.children ? " node--internal" : " node--leaf"); })
+    .attr("transform", function(d) { return "translate(" + project(d.x, d.y) + ")"; })
+;
+
+
+
+node.append("circle")
+      .attr("r", 4.5)
+      .on('click', click)
+      .on("mouseover", handleMouseOver);
+      //.on("mouseout", handleMouseOut);
+
+// Tooltips
 
 var div = d3.select("body").append("div")
     .attr("class", "tooltip")
-    .style("opacity", 0);
+    .style("opacity", 0)
+    .style("background-color", "white")
+    .style("border", "solid")
+    .style("border-width", "2px")
+    .style("border-radius", "5px")
+    .style("padding", "5px");
+
+svg.on('click', function(){div.style("visibility","hidden")});
+
+
+// Labels
+
+node.append("text")
+    .attr("dy", ".31em")
+    .attr("x", function(d) { return d.x < 180 === !d.children ? 6 : -6; })
+    .style("text-anchor", function(d) { return d.x < 180 === !d.children ? "start" : "end"; })
+    .attr("transform", function(d) { return "rotate(" + (d.x < 180 ? d.x - 90 : d.x + 90) + ")"; })
+    .text(function(d) { return d.data.name.substring(d.data.name.lastIndexOf(".") + 1); })
+;
+
+
+
 
 
 /* === Ajout d'un noeud === */
@@ -181,24 +246,64 @@ function click(d) {
     d3.select(this).attr("r", function(d) {  return this.r.baseVal.value*2 })
       .style('fill', function(d) {return "orange"});
     selectedForSynthese.push(selected.data._id);
+    div.style("visibility","hidden");
 
   }
+/*
+  d.select("body")
+  .selectAll("div")
+    .data(data)
+  .enter().append("div").on("mouseover", handleMouseOver(d))
+      .on("mousemove", function(){return div.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+      .on("mouseout", function(){return div.style("visibility", "hidden");});*/
 
 function handleMouseOver(d) {
+  div.style("visibility","visible");
+
    div.transition()
                 .duration(200)
                 .style("opacity", .9);
 
-   div .html("<br/>"  + d.data.value)
+   div .html("<br/> <h5>"  + d.data.name+ "</h5><br/>"+
+    '<table class="table table-striped table-bordered center">'+
+        '<tbody>'+
+        '<tr><td>'+ d.data.value +
+        '</td></tr>'+
+        '<tr><td> Par : '+ d.data.auteur +'</td></tr>'+
+        '</tbody>'+
+      '</table>'+
+          '<p>'+
+            '<a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseDefs" role="button" aria-expanded="false" aria-controls="multiCollapseDefs">Définitions</a>'+
+            '<button class="btn btn-info" type="button" data-toggle="collapse" data-target="#multiCollapseSources" aria-expanded="false" aria-controls="multiCollapseSources">Sources</button>'+
+          '</p>'+
+          '<div class="row">'+
+            '<div class="col">'+
+            '<div class="collapse multi-collapse" id="multiCollapseDefs">'+
+              '<div class="card card-body">'+ 'Définitions' +
+              '</div>'+
+            '</div>'+
+            '</div>'+
+            '<div class="col">'+
+              '<div class="collapse multi-collapse" id="multiCollapseSources">'+
+                '<div class="card card-body">'+ 'Sources' +
+                '</div>'+ 
+              '</div>'+
+            '</div>'+
+          '</div>'
+        )
                 .style("left", (d3.event.pageX) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
+
+
 }
 
+
+/*
 function handleMouseOut(d) {
             div.transition()
                 .duration(500)
                 .style("opacity", 0);
-}
+}*/
 
 function update(source) {
 
@@ -253,11 +358,7 @@ function update(source) {
     .attr("transform", function(d) { return "translate(" + project(d.x, d.y) + ")"; })
 
 
-  nodeEnter.append('circle')
-    .attr("r", 4.5)
-    .on('click', click)
-    .on("mouseover", handleMouseOver)
-    .on("mouseout", handleMouseOut);
+
 
   var nodeUpdate = nodeEnter.merge(node);
   nodeUpdate.transition().
