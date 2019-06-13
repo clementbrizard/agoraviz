@@ -383,6 +383,7 @@ function update(source) {
 
   nodeEnter.append('circle')
     .attr("r", 4.5)
+    .style('fill', function(d) {return color(d.data.type)})
     .on('click', click)
     .on("mouseover", handleMouseOver)
     .on("mouseout", handleMouseOut);
