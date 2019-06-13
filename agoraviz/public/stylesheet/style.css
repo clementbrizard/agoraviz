@@ -67,7 +67,9 @@ fieldset {
 	background:#00BCD4;
 	height:40px;
 	display:inline-block;
-	border-radius:0px;
+	border-radius:5px;
+	border-width:5px;
+	border-color: #2087a6;
 	margin:5px 0px;
 	-webkit-transition: all .3s ease-in-out;
 	-moz-transition: all .3s ease-in-out;
@@ -93,6 +95,7 @@ fieldset {
 }
 
 .form-container .btn.submit-form{
+	margin-left:20px;
 	margin-top:15px;
 	padding:12px;
 	background:#00BCD4;

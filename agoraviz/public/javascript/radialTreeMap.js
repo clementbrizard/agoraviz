@@ -138,6 +138,8 @@ function createGraph(data){
 var selected=null;
 $("#addNode").click(function() {
 
+	 console.log("parent"); 
+
 	  let parent = "";
 	  if (data.length == 0) {
 	    parent = debateJSON._id;

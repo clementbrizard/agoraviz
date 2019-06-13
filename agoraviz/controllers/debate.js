@@ -75,8 +75,8 @@ router.get('/show/:id', async (req, res) => {
     'pages/debate/debate', {
       title: debate.question,
       debate: debate,
-      contributions: contributions
-      ,syntheses: syntheses,
+      contributions: contributions,
+      syntheses: syntheses,
     },
   );
 });
