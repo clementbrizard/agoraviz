@@ -137,3 +137,12 @@
 #inputDebatQuestion{
     width:400px;
 }
+
+#basPage{    
+    position: absolute;
+    bottom: 0px;
+    width: 90%;    
+}
+#basPage p{
+    text-align: center;
+}
