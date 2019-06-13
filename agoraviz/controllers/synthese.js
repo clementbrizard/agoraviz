@@ -39,6 +39,7 @@ router.post('/', (req, res) => {
   };
 
 
+  console.log('ajout synthese');
   Synthese.new(req.db, obj, (err) => {
     if (err) {
       res.send('Error when trying to create a synthese');
