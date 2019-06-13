@@ -9,12 +9,27 @@
 <header>
     <% include ../../partials/header %>
 </header>
+  <div id="NewDebatContainer">  
     <form id="formAddDebat" name="adddebat" method="post" action="/debates/">
-      <input id="inputDebatQuestion" type="text" placeholder="Question" name="question" />
-      <input id="inputDebatDefinitions" type="text" placeholder="Définitions" name="definitions" />
-      <input id="inputDebatSources" type="text" placeholder="Sources" name="sources" />
-      <button id="btnAddDebat" class="btn btn-primary type="submit">Lancer le débat</button>
+      <ul id="listAddDebat">
+        <li>
+          <label>Donner la question/sujet du débat :</label><br>
+          <input id="inputDebatQuestion" type="text" placeholder="Question" name="question" />
+        </li>
+        <li>
+          <label>Vous pouvez donner la définitions de mots pour que les futurs contributeurs et vous même, partiez sur de bonnes bases :</label> <br>
+          <textarea id="inputDebatDefinitions" placeholder="Définitions" name="definitions"></textarea>
+        </li>
+        <li>
+          <label>Vous pouvez donner des sources :</label><br>
+          <textarea id="inputDebatSources" placeholder="Sources" name="sources"></textarea>
+        </li>
+        <li>
+          <br><button id="btnAddDebat" class="btn btn-primary" type="submit">Lancer le débat</button>
+        </li>
+      </ul>
     </form>
+  </div>
     <br>
 
 

@@ -19,19 +19,3 @@ function showHideSynth() {
         x.style.display = 'none';
     }
 }
-
-function showHideSour() {
-    var tab;
-    var x = document.getElementById("tabSour");    
-    if(x.style.display == "none")
-    {
-        x.style.display = "block";        
-        for (var i = 0; i < tab.length; i++)
-        {
-              
-        }
-    }else
-    {
-        x.style.display = "none";
-    }
-}

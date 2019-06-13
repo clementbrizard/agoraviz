@@ -24,23 +24,15 @@
     pointer-events: auto; 
 }
 
-#banner{
-    width: 763px;
-    height: 240px;
-    margin-top: 0;
-    box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.1),
-                0px 2px 0px 2px rgba(0,0,0,0.1) inset,
-                2px 0px 2px 0px rgba(0,0,0,0.1) inset,
-                2px 2px 0px 0px rgba(0,0,0,0.1) inset;
-    margin-bottom: 4px;
-
+#leTitre{
+    height: 100px;
 }
 
 #fondnavbar{
     width : 100%;
     height : 50px;
     background : linear-gradient(#ffffff,#cbcbcb);
-    border-radius : 0px 0px 4px 4px;
+    border-radius : 4px 4px 4px 4px;
     box-shadow: 0px 0px 2px 2px rgba(120,120,120,0.5),
                 0px 1px 0px 1px rgba(255, 255, 255,0.5) inset,
                 0px -3px 0px 1px rgba(120,120,120,0.1) inset;
@@ -81,16 +73,16 @@
 }
 
 #grandFond{        
-    background : linear-gradient(#ffffff,#cbcbcb);
+    background : linear-gradient(#ffffff,#e0e0e0);
     box-shadow: 0px 0px 2px 2px rgba(120,120,120,0.5),
                 0px 1px 0px 1px rgba(255, 255, 255,0.5) inset,
                 0px -3px 0px 1px rgba(120,120,120,0.1) inset;
 }
 #colGauche{        
-    background: #cbcbcb;    
+    background: #e0e0e0;    
 }
 #colDroite{         
-    background: #cbcbcb;    
+    background: #e0e0e0;    
 }
 
 #menuResume li{    
@@ -99,9 +91,6 @@
     height: 20px;    
     border-radius: 2px 2px 2px 2px;
     float:left;
-}
-#tabSour{
-    display: none;
 }
 
 #lContrib{
@@ -134,4 +123,17 @@
 }
 #auteursynthese{
     width:100%;
+}
+
+#NewDebatContainer{
+    margin-top: 50px;
+}
+
+#listAddDebat li{
+    display: table-row;
+    height: 50px;
+}
+
+#inputDebatQuestion{
+    width:400px;
 }
