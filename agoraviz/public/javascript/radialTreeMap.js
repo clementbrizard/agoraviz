@@ -1,4 +1,4 @@
-var data = [],
+=var data = [],
 selectedForSynthese = [];
 data.push({"_id" : debate._id, "parent" : "", "name" : debate.question, "value":""});
 contributions.forEach(function(c){data.push(c)});
@@ -144,7 +144,7 @@ $("#addNode").click(function() {
 
 
       var newNodeObj = {
-            type: 'resource-delete',
+            type: $("#type").val(),
             name: $("#label").val(),
             attributes: [],
             children: [],
@@ -163,7 +163,6 @@ $("#addNode").click(function() {
           selected.children.push(newNode);
           update(selected);
 
-      update(selected);
     });
   });
 
