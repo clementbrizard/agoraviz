@@ -19,6 +19,7 @@
     <div class="row">
         <div id="colGauche" class="col-md-2">
             <div class="container">
+                <div class="row">
                 <ul id="menuResume">
                     <li>
                         <label>Définitions :</label>
@@ -29,16 +30,22 @@
                         <h4><%= debate.sources%></h4>
                     </li>                    
                 </ul>
-            </div>
-            <div>
-                    <div class="row">
-                        Date
-                        <input id="dateValue" type="date"><br>
-                    </div>
-                    <div class="row submit-row">
-                        <button class="btn btn-block submit-form" id="end" >Afficher</button>
-                    </div>
+                <br><br><hr><br><br>
                 </div>
+                <div class="row">
+                        Choisir une date dans l'historique du débat :
+                        <label>Date</label>
+                        <input id="dateValue" type="date"><br>
+                </div>
+                 <div class="row submit-row">
+                        <button class="btn btn-block btn-primary submit-form" id="end" >Afficher</button>
+                 </div>
+
+
+
+
+            </div>
+
                 <br>
                 <!--
                 <table id="syntheses" class="table table-striped table-bordered">
@@ -76,6 +83,8 @@
             <svg width="672" height="672"></svg>
             
         </div>
+
+  
         <div id="colDroite" class="col-md-2">
             <div class="container">
                 <button class="btn btn-block btn-primary" onClick="showHideContrib()">Contribuer</button>
@@ -131,6 +140,41 @@
                 </ul>
                 </div>           
         </div>
+
+              <div class="container">
+
+                    <table id="syntheses" class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Contributions synthétisées</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% if(locals.syntheses) { %>
+                    <% syntheses.forEach(function(synthese) { %>
+                        <tr>
+                            <td><%= synthese.contributions %></td>
+                            <td><%= synthese.description %></td>
+                            <td><%= synthese.timestamp %></td>
+                            <td>
+                                <form id="deleteSynthese/<%= synthese._id %>" method="POST" action="/syntheses/delete/<%= synthese._id %>"></form>
+                                <a onClick="document.forms['deleteSynthese/<%= synthese._id %>'].submit()" class="btn btn-danger">
+                                    <i class="fas fa-trash-alt">
+                                        Delete
+                                    </i>
+                                </a>
+                            </td>
+                        </tr>
+                    <% }); %> 
+                    
+                    <% } %>
+                    </tbody>
+                </table>
+        </div>
+
     </div>
 </div>
 
