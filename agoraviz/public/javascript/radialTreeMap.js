@@ -288,6 +288,7 @@ function handleMouseOver(d) {
                 .duration(200)
                 .style("opacity", .9);
 
+  if(typeof d.data.synthese !== 'undefined'){
    div .html("<br/> <h5>"  + d.data.name+ "</h5><br/>"+
     '<table class="table table-striped table-bordered center">'+
         '<tbody>'+
@@ -301,6 +302,21 @@ function handleMouseOver(d) {
         )
                 .style("left", (d3.event.pageX) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
+
+  } else {
+    div .html("<br/> <h5>"  + d.data.name+ "</h5><br/>"+
+    '<table class="table table-striped table-bordered center">'+
+        '<tbody>'+
+        '<tr><td>'+ d.data.value +
+        '</td></tr>'+
+        '</tbody>'+
+      '</table>'
+        )
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+  }
+
+
 
 
 }
