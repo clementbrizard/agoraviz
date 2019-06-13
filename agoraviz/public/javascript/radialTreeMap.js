@@ -6,6 +6,7 @@ const debateJSON = debate;
 console.log(contributions);
 console.log(data);
 createGraph(data);
+ var svg;
 
 
 /* === Création du graphe === */
@@ -17,7 +18,7 @@ function createGraph(data){
 	.range(["green", "yellow", "orange", "red"])
 	.unknown("white");
  
-	var svg = d3.select("svg"),
+ svg = d3.select("svg"),
 	    width = +svg.attr("width"),
 	    height = +svg.attr("height"),
 	    g = svg.append("g")
@@ -78,29 +79,29 @@ function createGraph(data){
 	    .attr("transform", function(d) { return "rotate(" + (d.x < 180 ? d.x - 90 : d.x + 90) + ")"; })
 	    .text(function(d) { return d.data.name.substring(d.data.name.lastIndexOf(".") + 1); });
 
-	
+	/*
 	$.getScript("https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js", function()
 			{
 
 				 d3.selectAll("svg .node").each(function(d, i){
 					 $(this).popover({
 					 container: 'body' ,
-					 title: 'Bonjour',
+					 title: d.data.name,
 					 placement: 'bottom',
 					 content: d.data.value
 					 });
 				});
 
 				 // quand on clique ailleurs de la popover ça l'enlève
-		/*
+		
 				 $('body').on('click', function (e) {
 				        if ($(e.target).data('toggle') !== 'popover'
 				            && $(e.target).parents('svg .node').length === 0
 				            && $(e.target).parents('.popover.in').length === 0) {
 				            $('svg .node').popover('hide');
 				        }
-				    });  */
-			});
+				    });  
+			});*/
 
 
 
@@ -108,9 +109,28 @@ function createGraph(data){
 
 //Tooltips
 
-var div = d3.select("body").append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0);
+
+
+
+  var div = d3.select("body").append("div")
+    
+      .attr("class", "tooltip")
+    
+      .style("opacity", 0)
+    
+      .style("background-color", "white")
+    
+      .style("border", "solid")
+    
+      .style("border-width", "2px")
+    
+      .style("border-radius", "5px")
+    
+      .style("padding", "5px");
+    
+  
+    
+  svg.on('click', function(){div.style("visibility","hidden")});
 
 
 /* === Ajout d'un noeud === */
@@ -213,16 +233,42 @@ function project(x, y) {
   return [radius * Math.cos(angle), radius * Math.sin(angle)];
 }
 
+
+selectedNodes = [];
 function click(d) {
+
+
+    if(selectedForSynthese.includes(d.data._id)){ 
+      d.selected = !d.selected; 
+      d3.select(this).attr("r", function(d) {  return this.r.baseVal.value/2 })
+      .style('fill', function(d) {return color(d.data.type)});
+
+    selectedNodes = selectedNodes.filter(function(value, index, arr){
+
+    return value != d;
+
+    });
+
+    selectedForSynthese = selectedForSynthese.filter(function(value, index, arr){
+
+    return value != d.data._id;
+
+    });}
+    else{
     selected = d;
+     
     document.getElementById('addNode').disabled = false;
     d3.select(this).attr("r", function(d) {  return this.r.baseVal.value*2 })
       .style('fill', function(d) {return "orange"});
-    
+    selectedNodes.push(selected);
     selectedForSynthese.push(selected.data._id);
+
+  }
+
     
   }
 
+/*
 function handleMouseOver(d) {
    div.transition()
                 .duration(200)
@@ -231,7 +277,32 @@ function handleMouseOver(d) {
    div .html("<br/>"  + d.data.value)
                 .style("left", (d3.event.pageX) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
+}*/
+
+function handleMouseOver(d) {
+  div.style("visibility","visible");
+
+   div.transition()
+                .duration(200)
+                .style("opacity", .9);
+
+   div .html("<br/> <h5>"  + d.data.name+ "</h5><br/>"+
+    '<table class="table table-striped table-bordered center">'+
+        '<tbody>'+
+        '<tr><td>'+ d.data.value +
+        '</td></tr>'+
+        '<tr><td>'+ "Synthèse :"+
+                d.data.synthese +
+        '</td></tr>'+
+        '</tbody>'+
+      '</table>'
+        )
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+
+
 }
+
 
 function handleMouseOut(d) {
             div.transition()
