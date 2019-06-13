@@ -50,6 +50,17 @@ exports.new = (db, obj, cb) => {
       cb(err)
       : cb(null, doc);
   });
+
+  db.get('contribcollection').find({}).each(function (contrib) {
+    var synthese = db.get('synthesecollection').find({description: obj.description});
+    if (obj.contributions.includes(JSON.stringify(contrib._id))) {
+        //contrib.synthese = ObjectId(synthese._id);
+        db.get('contribcollection').update({ _id: contrib._id},{$set: {synthese: ObjectId(synthese._id)}});
+    }},{}, (err, doc) => {
+    return err ?
+      cb(err)
+      : cb(null, doc);
+  });
 };
 
 // Delete a synthese
