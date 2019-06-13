@@ -3,27 +3,18 @@ selectedForSynthese = [];
 data.push({"_id" : debate._id, "parent" : "", "name" : debate.question, "value":""});
 contributions.forEach(function(c){data.push(c)});
 const debateJSON = debate;
-
-}
-
-var tree = d3.tree()
-.size([360, 500])
-.separation(function(a, b) { return (a.parent == b.parent ? 1 : 2) / a.depth; });
-
-
-var stratify = d3.stratify()
-    .id(function(d) { return d._id; })
-    .parentId(function(d) { return d.parent; })
-
+console.log(contributions);
+console.log(data);
 createGraph(data);
- 
+
+
 /* === Création du graphe === */
 
 function createGraph(data){
 
 	color = d3.scaleOrdinal()
-	.domain(["ouicar", "ouimais", "noncar","nonmais","synthetise"])
-	.range(["green", "yellow", "orange", "red","grey"])
+	.domain(["ouicar", "ouimais", "noncar","nonmais"])
+	.range(["green", "yellow", "orange", "red"])
 	.unknown("white");
  
 	var svg = d3.select("svg"),
@@ -31,6 +22,16 @@ function createGraph(data){
 	    height = +svg.attr("height"),
 	    g = svg.append("g")
 	      .attr("transform", "translate(" + (width / 2 + 40) + "," + (height /3) + ")");
+	
+	
+	var stratify = d3.stratify()
+	    .id(function(d) { return d._id; })
+	    .parentId(function(d) { return d.parent; })
+	
+	
+	var tree = d3.tree()
+	    .size([360, 500])
+	    .separation(function(a, b) { return (a.parent == b.parent ? 1 : 2) / a.depth; });
 	
 	
 	var root = tree(stratify(data));
@@ -66,6 +67,16 @@ function createGraph(data){
 	      .on("mouseover", handleMouseOver)
 	      .on("mouseout", handleMouseOut);
 	
+	
+	
+	// Labels
+	
+	node.append("text")
+	    .attr("dy", ".31em")
+	    .attr("x", function(d) { return d.x < 180 === !d.children ? 6 : -6; })
+	    .style("text-anchor", function(d) { return d.x < 180 === !d.children ? "start" : "end"; })
+	    .attr("transform", function(d) { return "rotate(" + (d.x < 180 ? d.x - 90 : d.x + 90) + ")"; })
+	    .text(function(d) { return d.data.name.substring(d.data.name.lastIndexOf(".") + 1); });
 
 	
 	$.getScript("https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js", function()
@@ -153,13 +164,9 @@ $("#addNode").click(function() {
 				    selected.data.children = [];
 				  }
 				  selected.children.push(newNode);
-				  
-				  console.log("selected", selected);
-				  location.reload(true);
-//				  update(selected);
+				  update(selected);
 
-	  }); 
-	  
+	  });
 	});
 
 
@@ -237,10 +244,8 @@ function handleMouseOut(d) {
 function update(source) {
 
   var duration=700,
-  temp=d3.selectAll("path.link");
-  var root = tree(stratify(data));
-  var treeData = tree(root);
-  var g = d3.select("svg").select("g");
+  temp=d3.selectAll("path.link"),
+  treeData = tree(root);
 
   var nodes = treeData.descendants(),
   links = treeData.descendants().slice(1);
