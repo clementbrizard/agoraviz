@@ -1,4 +1,4 @@
-=var data = [],
+var data = [],
 selectedForSynthese = [];
 data.push({"_id" : debate._id, "parent" : "", "name" : debate.question, "value":""});
 contributions.forEach(function(c){data.push(c)});
