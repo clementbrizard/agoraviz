@@ -6,7 +6,7 @@ const debateJSON = debate;
 console.log(contributions);
 console.log(data);
 createGraph(data);
- var svg;
+
 
 
 /* === Création du graphe === */
@@ -18,7 +18,7 @@ function createGraph(data){
 	.range(["green", "yellow", "orange", "red"])
 	.unknown("white");
  
- svg = d3.select("svg"),
+ var svg = d3.select("svg"),
 	    width = +svg.attr("width"),
 	    height = +svg.attr("height"),
 	    g = svg.append("g")
@@ -30,7 +30,7 @@ function createGraph(data){
 	    .parentId(function(d) { return d.parent; })
 	
 	
-	var tree = d3.tree()
+	tree = d3.tree()
 	    .size([360, 500])
 	    .separation(function(a, b) { return (a.parent == b.parent ? 1 : 2) / a.depth; });
 	
@@ -105,7 +105,7 @@ function createGraph(data){
 
 
 
-}
+
 
 //Tooltips
 
@@ -394,6 +394,8 @@ function update(source) {
     d.x0 = d.x;
     d.y0 = d.y;
   });
+
+}
 
 }
 

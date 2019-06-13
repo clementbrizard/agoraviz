@@ -74,20 +74,12 @@
         </div>
         <div id="affTreeMap" class="container col-md-8">
             <svg width="672" height="672"></svg>
-            <script type="text/javascript" src="/static/javascript/jquery.min.js"></script>
-            <script>
-              var contributions = <%- JSON.stringify(contributions) %>;
-              const debate = <%- JSON.stringify(debate) %>;
-            </script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-            <script type="text/javascript" src="/static/javascript/d3.v4.min.js"></script>
-            <script type="text/javascript" src="/static/javascript/radialTreeMap.js"></script>            
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+            
         </div>
         <div id="colDroite" class="col-md-2">
             <div class="container">
-                <button class="btn btn-block btn-primary submit-form" onClick="showHideContrib()">Contribuer</button>
-                <script type="text/javascript" src="/static/javascript/menuDebat.js"></script>
+                <button class="btn btn-block btn-primary" onClick="showHideContrib()">Contribuer</button>
+                
                 <ul id="lContrib">
                     <li> 
                         <label>Type :</label>
@@ -116,7 +108,7 @@
                         </div>
                     </li>
                 </ul>
-                <button class="btn btn-block btn-primary submit-form" onClick="showHideSynth()">Synthétiser</button>                
+                <button class="btn btn-block btn-primary" onClick="showHideSynth()">Synthétiser</button>                
                 <ul id="lSynth">
                     <li>
                         <h4 id="form-title">Synthétiser plusieurs noeuds</h4>
@@ -141,5 +133,17 @@
         </div>
     </div>
 </div>
+
+
+<script type="text/javascript" src="/static/javascript/menuDebat.js"></script>
+<script type="text/javascript" src="/static/javascript/jquery.min.js"></script>
+            <script>
+              var contributions = <%- JSON.stringify(contributions) %>;
+              const debate = <%- JSON.stringify(debate) %>;
+            </script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+            <script type="text/javascript" src="/static/javascript/d3.v4.min.js"></script>
+            <script type="text/javascript" src="/static/javascript/radialTreeMap.js"></script>            
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 </body>
 </html>
