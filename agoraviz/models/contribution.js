@@ -17,7 +17,7 @@ exports.getByDate = (db, debate, end, cb) => {
 	  const debateId = debate;
 	  db.get('contribcollection').find({
 	    debate: ObjectId(debateId),
-	    timestamp:{$gte:new Date(end)}
+	    timestamp:{$lte:new Date(end)}
 	  }, {},  (err, docs) => {
 	    return err ?
 	      cb(err)

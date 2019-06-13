@@ -22,7 +22,6 @@ router.get('/synthese/:syntheseId', (req, res) => {
 
 router.get('/:debateId/:end', (req, res) => {
 	  const debateId = req.params.debateId;
-	  console.log("mauvais endroit")
 	  const end = req.params.end;
 	  Contribution.getByDate(req.db, debateId, end, (err, contributions) => {
 	    res.json(contributions);
@@ -32,7 +31,6 @@ router.get('/:debateId/:end', (req, res) => {
 router.get('/:debateId/stat/stat', (req, res) => {
 	  const debateId = req.params.debateId;
 	  const end = req.params.end;
-	  console.log("bon endroit")
 	  Contribution.countByDay(req.db, debateId, (err, contributions) => {
 	    res.json(contributions);
 	  });
