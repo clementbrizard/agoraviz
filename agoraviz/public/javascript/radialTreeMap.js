@@ -125,6 +125,8 @@ $("#addNode").click(function() {
 	    parent = selected.data._id;
 	  }
 
+	  console.log("parent", parent); 
+	  
 	  const newContrib = {
 	    debate: debateJSON._id,
 	    parent: parent,
@@ -143,7 +145,7 @@ $("#addNode").click(function() {
 
 
 		  var newNodeObj = {
-				    type: 'resource-delete',
+				    type: $("#type").val(),
 				    name: $("#label").val(),
 				    attributes: [],
 				    children: [],
@@ -162,7 +164,6 @@ $("#addNode").click(function() {
 				  selected.children.push(newNode);
 				  update(selected);
 
-		  update(selected);
 	  });
 	});
 
