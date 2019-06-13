@@ -54,21 +54,6 @@ exports.getByDate = (db, debate, end, cb) => {
 	};
 
 
-	/*
-	 * 
-	 * db.sales.aggregate(
-   [
-      {
-        $group : {
-           _id : { month: { $month: "$date" }, day: { $dayOfMonth: "$date" }, year: { $year: "$date" } },
-           totalPrice: { $sum: { $multiply: [ "$price", "$quantity" ] } },
-           averageQuantity: { $avg: "$quantity" },
-           count: { $sum: 1 }
-        }
-      }
-   ]
-)
-	 */
 // Create a new contribution
 exports.new = (db, obj, cb) => {
   db.get('contribcollection').insert({

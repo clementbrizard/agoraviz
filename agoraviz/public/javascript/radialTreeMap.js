@@ -1,4 +1,5 @@
-var data = [];
+var data = [],
+selectedForSynthese = [];
 data.push({"_id" : debate._id, "parent" : "", "name" : debate.question, "value":""});
 contributions.forEach(function(c){data.push(c)});
 const debateJSON = debate;
@@ -76,6 +77,33 @@ function createGraph(data){
 	    .style("text-anchor", function(d) { return d.x < 180 === !d.children ? "start" : "end"; })
 	    .attr("transform", function(d) { return "rotate(" + (d.x < 180 ? d.x - 90 : d.x + 90) + ")"; })
 	    .text(function(d) { return d.data.name.substring(d.data.name.lastIndexOf(".") + 1); });
+
+	
+	$.getScript("https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js", function()
+			{
+
+				 d3.selectAll("svg .node").each(function(d, i){
+					 $(this).popover({
+					 container: 'body' ,
+					 title: 'Bonjour',
+					 placement: 'bottom',
+					 content: d.data.value
+					 });
+				});
+
+				 // quand on clique ailleurs de la popover ça l'enlève
+		/*
+				 $('body').on('click', function (e) {
+				        if ($(e.target).data('toggle') !== 'popover'
+				            && $(e.target).parents('svg .node').length === 0
+				            && $(e.target).parents('.popover.in').length === 0) {
+				            $('svg .node').popover('hide');
+				        }
+				    });  */
+			});
+
+
+
 }
 
 //Tooltips
@@ -90,31 +118,77 @@ var div = d3.select("body").append("div")
 var selected=null;
 $("#addNode").click(function() {
 
-  let parent = "";
-  if (data.length == 0) {
-    parent = debateJSON._id;
-  } else {
-    parent = selected.data._id;
-  }
+	  let parent = "";
+	  if (data.length == 0) {
+	    parent = debateJSON._id;
+	  } else {
+	    parent = selected.data._id;
+	  }
 
-  const newContrib = {
-    debate: debateJSON._id,
-    parent: parent,
-    type: $("#type").val(),
-    name: $("#label").val(),
-    value: $("#comment").val(),
-    auteur: $("#auteur").val()
-  };
+	  const newContrib = {
+	    debate: debateJSON._id,
+	    parent: parent,
+	    type: $("#type").val(),
+	    name: $("#label").val(),
+	    value: $("#comment").val(),
+	    auteur: $("#auteur").val()
+	  };
 
-  $.ajax({
-    type: 'POST',
-    data: newContrib,
-    url: '/contributions/',
-    dataType: 'text',
-  }).done(function(response) {
-    location.reload(true);
-  });
-});
+	  $.ajax({
+	    type: 'POST',
+	    data: newContrib,
+	    url: '/contributions/',
+	    dataType: 'text',
+	  }).done(function(response) {
+
+
+		  var newNodeObj = {
+				    type: 'resource-delete',
+				    name: $("#label").val(),
+				    attributes: [],
+				    children: [],
+				    value: $("#comment").val()
+				  };
+				  var newNode = d3.hierarchy(newNodeObj);
+				  newNode.depth = selected.depth + 1;
+				  newNode.height = selected.height - 1;
+				  newNode.parent = selected;
+				  newNode.id =$("#label").val(); // label
+
+				  if(!selected.children){
+				    selected.children = [];
+				    selected.data.children = [];
+				  }
+				  selected.children.push(newNode);
+				  update(selected);
+
+		  update(selected);
+	  });
+	});
+
+
+
+$("#addSynthese").click(function() {
+
+	  const newSynthese = {
+	    description: $("#description").val(),
+	    contributions: JSON.stringify(selectedForSynthese),
+	    debate: debateJSON._id,
+	    auteur: $("#auteursynthese").val(),
+	  };
+
+	  console.log("selectedForSynthese:"+newSynthese.contributions);
+
+	  $.ajax({
+	    type: 'POST',
+	    data: newSynthese,
+	    url: '/syntheses/',
+	    dataType: 'text',
+	  }).done(function(response) {
+	    location.reload(true);
+	  });
+	});
+
 
 
 $("#end").click(function(){
@@ -143,6 +217,9 @@ function click(d) {
     document.getElementById('addNode').disabled = false;
     d3.select(this).attr("r", function(d) {  return this.r.baseVal.value*2 })
       .style('fill', function(d) {return "orange"});
+    
+    selectedForSynthese.push(selected.data._id);
+    
   }
 
 function handleMouseOver(d) {
