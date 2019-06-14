@@ -163,35 +163,40 @@ $("#addNode").click(function() {
 	    auteur: $("#auteur").val()
 	  };
 
-	  $.ajax({
-	    type: 'POST',
-	    data: newContrib,
-	    url: '/contributions/',
-	    dataType: 'text',
-	  }).done(function(response) {
+    //if(selected != null){
+      $.ajax({
+      type: 'POST',
+      data: newContrib,
+      url: '/contributions/',
+      dataType: 'text',
+    }).done(function(response) {
 
    
-		  var newNodeObj = {
-				    type: $("#type").val(),
-				    name: $("#label").val(),
-				    attributes: [],
-				    children: [],
-				    value: $("#comment").val()
-				  };
-				  var newNode = d3.hierarchy(newNodeObj);
-				  newNode.depth = selected.depth + 1;
-				  newNode.height = selected.height - 1;
-				  newNode.parent = selected;
-				  newNode.id =$("#label").val(); // label
+      var newNodeObj = {
+            type: $("#type").val(),
+            name: $("#label").val(),
+            attributes: [],
+            children: [],
+            value: $("#comment").val()
+          };
+          var newNode = d3.hierarchy(newNodeObj);
+          newNode.depth = selected.depth + 1;
+          newNode.height = selected.height - 1;
+          newNode.parent = selected;
+          newNode.id =$("#label").val(); // label
 
-				  if(!selected.children){
-				    selected.children = [];
-				    selected.data.children = [];
-				  }
-				  selected.children.push(newNode);
-				  update(selected);
+          if(!selected.children){
+            selected.children = [];
+            selected.data.children = [];
+          }
+          selected.children.push(newNode);
+          update(selected);
 
-	  });
+    });
+    //}
+    selected = null;
+
+	  
 	});
 
 
@@ -320,6 +325,8 @@ function handleMouseOver(d) {
                 .style("left", (d3.event.pageX) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
   }
+
+  div.style("display","inline-block");
 
 
 
