@@ -24,6 +24,17 @@
     pointer-events: none; 
 }
 
+
+#addNode {
+  visibility: hidden;
+}
+
+
+.draggable {
+  cursor: move;
+}
+
+
 #leTitre{
     height: 100px;
 }

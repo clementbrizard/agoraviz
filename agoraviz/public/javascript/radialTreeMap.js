@@ -30,7 +30,7 @@ function createGraph(data){
 	    .parentId(function(d) { return d.parent; })
 	
 	
-	tree = d3.tree()
+	var tree = d3.tree()
 	    .size([360, 500])
 	    .separation(function(a, b) { return (a.parent == b.parent ? 1 : 2) / a.depth; });
 	
@@ -135,6 +135,11 @@ function createGraph(data){
 
 /* === Ajout d'un noeud === */
 
+$("#addCircle").click(function(){
+  addCircleDraggable();
+});
+
+
 var selected=null;
 $("#addNode").click(function() {
 
@@ -165,7 +170,7 @@ $("#addNode").click(function() {
 	    dataType: 'text',
 	  }).done(function(response) {
 
-
+   
 		  var newNodeObj = {
 				    type: $("#type").val(),
 				    name: $("#label").val(),
@@ -413,6 +418,12 @@ function update(source) {
   });
 
 }
+
+
+
+  
+   
+
 
 }
 
