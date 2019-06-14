@@ -61,7 +61,7 @@ function createGraph(data){
 
 	node.append("circle")
 	      .attr("r", 4.5)
-	      .style('fill', function(d) { return color(d.data.type)})
+	      .style('fill', function(d) { return d.data.synthese? "grey" : color(d.data.type)})
 	      .style("stroke",  function(d) { return d.data.parent==""? "#8da0cb" : null})
 	      .on('click', click)
 	      .on("mouseover", handleMouseOver)
