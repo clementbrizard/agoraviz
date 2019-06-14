@@ -21,7 +21,7 @@ function createGraph(data){
 	    width = +svg.attr("width"),
 	    height = +svg.attr("height"),
 	    g = svg.append("g")
-	      .attr("transform", "translate(" + (width / 2 + 40) + "," + (height /3) + ")");
+	      .attr("transform", "translate(" + (width / 2 - 40) + "," + (height /3) + ")");
 
 
 	var stratify = d3.stratify()
@@ -60,7 +60,7 @@ function createGraph(data){
 	    .attr("transform", function(d) { return "translate(" + project(d.x, d.y) + ")"; })
 
 	node.append("circle")
-	      .attr("r", 4.5)
+	      .attr("r", 6)
 	      .style('fill', function(d) { return d.data.synthese? "grey" : color(d.data.type)})
 	      .style("stroke",  function(d) { return d.data.parent==""? "#8da0cb" : null})
 	      .on('click', click)
@@ -395,7 +395,7 @@ function update(source) {
 
 
   nodeEnter.append('circle')
-    .attr("r", 4.5)
+    .attr("r", 6)
     .style('fill', function(d) {return color(d.data.type)})
     .on('click', click)
     .on("mouseover", handleMouseOver)
@@ -407,7 +407,7 @@ function update(source) {
     .attr("transform", function(d) { return "translate(" + project(d.x, d.y) + ")"; })
 
   nodeUpdate.select('circle.node')
-    .attr("r", 4.5)
+    .attr("r", 6)
     .attr('cursor', 'pointer');
 
   // Suppression des anciens noeuds :
