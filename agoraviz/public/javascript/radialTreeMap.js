@@ -6,7 +6,7 @@ const debateJSON = debate;
 console.log(contributions);
 console.log(data);
 createGraph(data);
-
+var dragDrop = false;
 
 
 /* === Création du graphe === */
@@ -71,14 +71,14 @@ function createGraph(data){
 	
 	
 	// Labels
-	
+	/*
 	node.append("text")
 	    .attr("dy", ".31em")
 	    .attr("x", function(d) { return d.x < 180 === !d.children ? 6 : -6; })
 	    .style("text-anchor", function(d) { return d.x < 180 === !d.children ? "start" : "end"; })
 	    .attr("transform", function(d) { return "rotate(" + (d.x < 180 ? d.x - 90 : d.x + 90) + ")"; })
 	    .text(function(d) { return d.data.name.substring(d.data.name.lastIndexOf(".") + 1); });
-
+*/
 	/*
 	$.getScript("https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js", function()
 			{
@@ -136,12 +136,15 @@ function createGraph(data){
 /* === Ajout d'un noeud === */
 
 $("#addCircle").click(function(){
+  dragDrop=true;
   addCircleDraggable();
 });
 
 
 var selected=null;
 $("#addNode").click(function() {
+
+    dragDrop=false;
 
 	 console.log("parent"); 
 
@@ -163,7 +166,7 @@ $("#addNode").click(function() {
 	    auteur: $("#auteur").val()
 	  };
 
-    //if(selected != null){
+    if(selected != null){
       $.ajax({
       type: 'POST',
       data: newContrib,
@@ -193,8 +196,7 @@ $("#addNode").click(function() {
           update(selected);
 
     });
-    //}
-    selected = null;
+    }
 
 	  
 	});
@@ -280,18 +282,18 @@ function click(d) {
     
   }
 
-/*
-function handleMouseOver(d) {
-   div.transition()
-                .duration(200)
-                .style("opacity", .9);
-
-   div .html("<br/>"  + d.data.value)
-                .style("left", (d3.event.pageX) + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
-}*/
 
 function handleMouseOver(d) {
+if(dragDrop){
+  selected = d;
+  if (selected!=null){
+    $("#addNode").click();
+    $("#newNode").remove();
+  }
+}
+else{
+
+
   div.style("visibility","visible");
 
    div.transition()
@@ -330,7 +332,7 @@ function handleMouseOver(d) {
   div.style("max-width","500px");
   div.style("height","auto");
   div.style("padding","20px");
-
+}
 
 
 

@@ -52,7 +52,7 @@
         })
 		}
 		
-		
+		/*
 		d3.selectAll(".node").on("mouseover", handle)
 	
 	function handle(d){
@@ -60,7 +60,7 @@
 		selected=d;
 		$("#addNode").click();
 	}
-	
+	*/
 	
 		
 		  		  
