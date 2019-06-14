@@ -11,17 +11,17 @@
       stroke-width: 1.5px;
   }
 
-  div.tooltip { 
-    position: absolute;     
-    text-align: center;     
-    width: 260px;          
-    height: 90px;         
-    padding: 2px;       
-    font: 12px sans-serif;    
-    background: lightsteelblue; 
-    border: 0px;    
-    border-radius: 8px;     
-    pointer-events: none; 
+  div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 260px;
+    height: 90px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
 }
 
 
@@ -83,23 +83,23 @@
     transition: 1s;
 }
 
-#grandFond{        
+#grandFond{
     background : linear-gradient(#ffffff,#e0e0e0);
     box-shadow: 0px 0px 2px 2px rgba(120,120,120,0.5),
                 0px 1px 0px 1px rgba(255, 255, 255,0.5) inset,
                 0px -3px 0px 1px rgba(120,120,120,0.1) inset;
 }
-#colGauche{        
-    background: #e0e0e0;    
+#colGauche{
+    background: #e0e0e0;
 }
-#colDroite{         
-    background: #e0e0e0;    
+#colDroite{
+    background: #e0e0e0;
 }
 
-#menuResume li{    
+#menuResume li{
     display: table;
     width:100px;
-    height: 20px;    
+    height: 20px;
     border-radius: 2px 2px 2px 2px;
     float:left;
 }
@@ -120,7 +120,19 @@
     height: 70px;
 }
 
-#label{
+ #definitions{
+     display: none;
+ }
+
+ #sources{
+     display: none;
+ }
+
+ #dateForm{
+     display: none;
+ }
+
+ #label{
     width:100%;
 }
 #comment{
@@ -149,10 +161,10 @@
     width:400px;
 }
 
-#basPage{    
+#basPage{
     position: absolute;
     bottom: 0px;
-    width: 90%;    
+    width: 90%;
 }
 #basPage p{
     text-align: center;

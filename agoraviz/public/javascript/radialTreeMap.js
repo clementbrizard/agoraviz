@@ -8,7 +8,6 @@ console.log(data);
 createGraph(data);
 var dragDrop = false;
 
-
 /* === Création du graphe === */
 
 function createGraph(data){
@@ -17,28 +16,28 @@ function createGraph(data){
 	.domain(["ouicar", "ouimais", "noncar","nonmais"])
 	.range(["green", "yellow", "orange", "red"])
 	.unknown("white");
- 
+
  var svg = d3.select("svg"),
 	    width = +svg.attr("width"),
 	    height = +svg.attr("height"),
 	    g = svg.append("g")
 	      .attr("transform", "translate(" + (width / 2 + 40) + "," + (height /3) + ")");
-	
-	
+
+
 	var stratify = d3.stratify()
 	    .id(function(d) { return d._id; })
 	    .parentId(function(d) { return d.parent; })
-	
-	
+
+
 	var tree = d3.tree()
 	    .size([360, 500])
 	    .separation(function(a, b) { return (a.parent == b.parent ? 1 : 2) / a.depth; });
-	
-	
+
+
 	var root = tree(stratify(data));
-	
+
 	// Arcs
-	
+
 	var link = g.selectAll(".link")
 	  .data(root.descendants().slice(1))
 	  .enter().append("path")
@@ -50,16 +49,16 @@ function createGraph(data){
 	            + " " + project(d.parent.x, (d.y + d.parent.y) / 2)
 	            + " " + project(d.parent.x, d.parent.y);
 	      });
-	
-	
+
+
 	// Noeuds
-	
+
 	var node = g.selectAll(".node")
 	  .data(root.descendants())
 	  .enter().append("g")
 	    .attr("class", function(d) { return "node" + (d.children ? " node--internal" : " node--leaf"); })
 	    .attr("transform", function(d) { return "translate(" + project(d.x, d.y) + ")"; })
-	
+
 	node.append("circle")
 	      .attr("r", 4.5)
 	      .style('fill', function(d) { return color(d.data.type)})
@@ -67,11 +66,12 @@ function createGraph(data){
 	      .on('click', click)
 	      .on("mouseover", handleMouseOver)
 	      .on("mouseout", handleMouseOut);
-	
-	
-	
+
+
+
 	// Labels
 	/*
+
 	node.append("text")
 	    .attr("dy", ".31em")
 	    .attr("x", function(d) { return d.x < 180 === !d.children ? 6 : -6; })
@@ -93,14 +93,14 @@ function createGraph(data){
 				});
 
 				 // quand on clique ailleurs de la popover ça l'enlève
-		
+
 				 $('body').on('click', function (e) {
 				        if ($(e.target).data('toggle') !== 'popover'
 				            && $(e.target).parents('svg .node').length === 0
 				            && $(e.target).parents('.popover.in').length === 0) {
 				            $('svg .node').popover('hide');
 				        }
-				    });  
+				    });
 			});*/
 
 
@@ -110,26 +110,24 @@ function createGraph(data){
 //Tooltips
 
 
-
-
   var div = d3.select("body").append("div")
-    
+
       .attr("class", "tooltip")
-    
+
       .style("opacity", 0)
-    
+
       .style("background-color", "white")
-    
+
       .style("border", "solid")
-    
+
       .style("border-width", "2px")
-    
+
       .style("border-radius", "5px")
-    
+
       .style("padding", "5px");
-    
-  
-    
+
+
+
   svg.on('click', function(){div.style("visibility","hidden")});
 
 
@@ -143,10 +141,9 @@ $("#addCircle").click(function(){
 
 var selected=null;
 $("#addNode").click(function() {
-
     dragDrop=false;
 
-	 console.log("parent"); 
+	 console.log("parent");
 
 	  let parent = "";
 	  if (data.length == 0) {
@@ -155,8 +152,8 @@ $("#addNode").click(function() {
 	    parent = selected.data._id;
 	  }
 
-	  console.log("parent", parent); 
-	  
+	  console.log("parent", parent);
+
 	  const newContrib = {
 	    debate: debateJSON._id,
 	    parent: parent,
@@ -174,7 +171,7 @@ $("#addNode").click(function() {
       dataType: 'text',
     }).done(function(response) {
 
-   
+
       var newNodeObj = {
             type: $("#type").val(),
             name: $("#label").val(),
@@ -198,7 +195,7 @@ $("#addNode").click(function() {
     });
     }
 
-	  
+
 	});
 
 
@@ -233,11 +230,11 @@ $("#end").click(function(){
 	    dataType: 'text',
 	  }).done(function(response) {
 		  data=JSON.parse(response);
-		  data.push({"_id" : debate._id, "parent" : "", "name" : debate.question, "value":""})	
+		  data.push({"_id" : debate._id, "parent" : "", "name" : debate.question, "value":""})
 		  console.log(data);
 		  $("svg").empty();
 		  createGraph(data);
-	    
+
 	  });
 })
 
@@ -251,9 +248,8 @@ function project(x, y) {
 selectedNodes = [];
 function click(d) {
 
-
-    if(selectedForSynthese.includes(d.data.name)){ 
-      d.selected = !d.selected; 
+    if(selectedForSynthese.includes(d.data.name)){
+      d.selected = !d.selected;
       d3.select(this).attr("r", function(d) {  return this.r.baseVal.value/2 })
       .style('fill', function(d) {return color(d.data.type)});
 
@@ -270,7 +266,7 @@ function click(d) {
     });}
     else{
     selected = d;
-     
+
     document.getElementById('addNode').disabled = false;
     d3.select(this).attr("r", function(d) {  return this.r.baseVal.value*2 })
       .style('fill', function(d) {return "orange"});
@@ -279,7 +275,7 @@ function click(d) {
 
   }
 
-    
+
   }
 
 
@@ -430,12 +426,6 @@ function update(source) {
   });
 
 }
-
-
-
-  
-   
-
 
 }
 
