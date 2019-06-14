@@ -250,7 +250,7 @@ selectedNodes = [];
 function click(d) {
 
 
-    if(selectedForSynthese.includes(d.data._id)){ 
+    if(selectedForSynthese.includes(d.data.name)){ 
       d.selected = !d.selected; 
       d3.select(this).attr("r", function(d) {  return this.r.baseVal.value/2 })
       .style('fill', function(d) {return color(d.data.type)});
@@ -263,7 +263,7 @@ function click(d) {
 
     selectedForSynthese = selectedForSynthese.filter(function(value, index, arr){
 
-    return value != d.data._id;
+    return value != d.data.name;
 
     });}
     else{
@@ -273,7 +273,7 @@ function click(d) {
     d3.select(this).attr("r", function(d) {  return this.r.baseVal.value*2 })
       .style('fill', function(d) {return "orange"});
     selectedNodes.push(selected);
-    selectedForSynthese.push(selected.data._id);
+    selectedForSynthese.push(selected.data.name);
 
   }
 
