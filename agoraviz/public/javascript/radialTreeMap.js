@@ -21,7 +21,7 @@ function createGraph(data){
 	    width = +svg.attr("width"),
 	    height = +svg.attr("height"),
 	    g = svg.append("g")
-	      .attr("transform", "translate(" + (width / 2 - 40) + "," + (height /3) + ")");
+	      .attr("transform", "translate(" + (width / 2 - 45) + "," + (height /3 + 10) + ")");
 
 
 	var stratify = d3.stratify()
