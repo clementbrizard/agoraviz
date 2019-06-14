@@ -326,7 +326,10 @@ function handleMouseOver(d) {
                 .style("top", (d3.event.pageY - 28) + "px");
   }
 
-  div.style("display","inline-block");
+  div.style("width","auto");
+  div.style("max-width","500px");
+  div.style("height","auto");
+  div.style("padding","20px");
 
 
 
