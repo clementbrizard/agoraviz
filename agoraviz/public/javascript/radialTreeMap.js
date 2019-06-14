@@ -14,7 +14,7 @@ function createGraph(data){
 
 	color = d3.scaleOrdinal()
 	.domain(["ouicar", "ouimais", "noncar","nonmais"])
-	.range(["green", "yellow", "orange", "red"])
+	.range(["green", "yellow", "red", "orange"])
 	.unknown("white");
 
  var svg = d3.select("svg"),
