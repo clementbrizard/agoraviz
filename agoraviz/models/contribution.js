@@ -12,6 +12,7 @@ exports.all = (db, debate, cb) => {
   });
 };
 
+
 exports.getByDate = (db, debate, end, cb) => {
 	  const debateId = debate;
 	  db.get('contribcollection').find({
