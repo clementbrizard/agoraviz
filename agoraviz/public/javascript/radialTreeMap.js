@@ -21,7 +21,7 @@ function createGraph(data){
 	    width = +svg.attr("width"),
 	    height = +svg.attr("height"),
 	    g = svg.append("g")
-	      .attr("transform", "translate(" + (width / 2 - 45) + "," + (height /3 + 10) + ")");
+	      .attr("transform", "translate(" + ($("#affTreeMap").width() / 2 ) + "," + ($("#affTreeMap").height() / 4) + ")");
 
 
 	var stratify = d3.stratify()
